@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
+  "name": "my-project",
+=======
   "name": "book-store-frontend",
+>>>>>>> initial commit
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

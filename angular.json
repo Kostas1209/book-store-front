@@ -3,7 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+<<<<<<< HEAD
+    "my-project": {
+=======
     "book-store-frontend": {
+>>>>>>> initial commit
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +17,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+<<<<<<< HEAD
+            "outputPath": "dist/my-project",
+=======
             "outputPath": "dist/book-store-frontend",
+>>>>>>> initial commit
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -63,18 +71,30 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+<<<<<<< HEAD
+            "browserTarget": "my-project:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "my-project:build:production"
+=======
             "browserTarget": "book-store-frontend:build"
           },
           "configurations": {
             "production": {
               "browserTarget": "book-store-frontend:build:production"
+>>>>>>> initial commit
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
+<<<<<<< HEAD
+            "browserTarget": "my-project:build"
+=======
             "browserTarget": "book-store-frontend:build"
+>>>>>>> initial commit
           }
         },
         "test": {
@@ -111,15 +131,27 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
+<<<<<<< HEAD
+            "devServerTarget": "my-project:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "my-project:serve:production"
+=======
             "devServerTarget": "book-store-frontend:serve"
           },
           "configurations": {
             "production": {
               "devServerTarget": "book-store-frontend:serve:production"
+>>>>>>> initial commit
             }
           }
         }
       }
     }},
+<<<<<<< HEAD
+  "defaultProject": "my-project"
+=======
   "defaultProject": "book-store-frontend"
+>>>>>>> initial commit
 }
