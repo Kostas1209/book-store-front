@@ -15,8 +15,8 @@ export class HttpService{
 
     getData(path : string , data)
     {
-        console.log(data);
-        return this.http.get(path,data);
+        //console.log(data);
+        return this.http.get(path, data);
     }
 }
 

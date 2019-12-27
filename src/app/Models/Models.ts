@@ -9,3 +9,13 @@ export class User
     Email: string;
     Password : string;
 }
+
+@Injectable()
+export class Book
+{
+    title : string;
+    author: string;
+    amount_in_storage : number;
+    price : number;
+    id : number;
+}

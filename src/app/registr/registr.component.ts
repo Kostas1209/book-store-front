@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 import {HttpService} from '../Services/Server.Service';
 import {User} from '../Models/Models';
 import { HttpClient } from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'registr',
@@ -16,7 +17,7 @@ export class RegistrComponent {
     result:string;
     user: User = new User;
     myForm : FormGroup;
-    constructor(private httpService: HttpService){
+    constructor(private httpService: HttpService, private router:Router){
         this.user.Name = "Tom";
         this.user.LastName = "Sawyer";
         this.myForm = new FormGroup({
@@ -42,7 +43,11 @@ export class RegistrComponent {
         console.log(this.user);
         console.log( this.httpService.postData("http://localhost:8000/api/registr/", user_data)
         .subscribe(
-            (data: string) => {this.result=data;this.data_is_received = true;}
+            (data: string) => {
+                this.result=data;
+                this.data_is_received = true;
+                this.router.navigate(['login']);
+            }
             //error => console.log(error)
         )) ; 
     }

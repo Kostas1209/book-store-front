@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import {HttpService} from '../Services/Server.Service';
 import { HttpClient } from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'login',
@@ -16,7 +17,7 @@ export class LoginComponent {
     data_is_received : boolean = undefined;
     result:any;
     myForm : FormGroup;
-    constructor(private httpService: HttpService){
+    constructor(private httpService: HttpService, private router : Router){
         this.data_user = {email:"",password:""};
         this.myForm = new FormGroup({
             "userEmail": new FormControl("", [
@@ -33,7 +34,11 @@ export class LoginComponent {
     submit(){
         console.log( this.httpService.postData("http://localhost:8000/api/login/", this.data_user )
         .subscribe(
-            (data:any) => {this.result=data;this.data_is_received = true;},
+            (data:any) => {
+                this.result=data;
+                this.data_is_received = true;
+                this.router.navigate(['book']);
+            },
             error => {this.data_is_received = false;
                     this.data_user.password = ""}
         )) ; 
