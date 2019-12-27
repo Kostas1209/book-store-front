@@ -1,0 +1,30 @@
+<form [formGroup]="myForm" novalidate (ngSubmit)="submit()">
+    <label>Email</label>
+    <div class="form-group">
+        <input class="form-control" name="email" formControlName="userEmail" [(ngModel)] = "data_user.email"/>
+          
+        <div class="alert alert-danger"
+            *ngIf="myForm.controls['userEmail'].invalid && myForm.controls['userEmail'].touched">
+            <p>Email is invalid</p>
+        </div>
+    </div>
+    <label>Password</label>
+    <div class="form-group">
+        <input type = "password" class="form-control" name="password" formControlName="UserPassword" [(ngModel)] = "data_user.password"/>
+        <div class="alert alert-danger"
+            *ngIf="myForm.controls['UserPassword'].invalid && myForm.controls['UserPassword'].touched && data_user.password != '' ">
+            <p>Password contains invalid characters</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" [disabled]="myForm.invalid">
+            Send
+        </button>
+    </div>
+    <div *ngIf ="this.data_is_received == true">
+        <h1>Login is success</h1>
+    </div>
+    <div *ngIf ="this.data_is_received == false">
+        <h1>Wrong credentials</h1>
+    </div>
+</form>

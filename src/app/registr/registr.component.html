@@ -1,0 +1,53 @@
+<form [formGroup]="myForm" novalidate (ngSubmit)="submit()">
+    <label>Name</label>
+    <div class="form-group">
+        <input class="form-control" name="name" formControlName="userName" [(ngModel)] = "user.Name"/>
+          
+        <div class="alert alert-danger"
+            *ngIf="myForm.controls['userName'].invalid && myForm.controls['userName'].touched">
+            <p>Name is invalid</p>
+        </div>
+    </div>
+    <label>Lastname</label>
+    <div class="form-group">
+        <input class="form-control" name="lastname" formControlName="userLastname" [(ngModel)] = "user.LastName"/>
+          
+        <div class="alert alert-danger"
+            *ngIf="myForm.controls['userLastname'].invalid && myForm.controls['userLastname'].touched">
+            <p>Lastname is invalid</p>
+        </div>
+    </div>
+    <label>Email</label>
+    <div class="form-group">
+        <input class="form-control" name="email" formControlName="userEmail" [(ngModel)] = "user.Email"/>
+          
+        <div class="alert alert-danger"
+            *ngIf="myForm.controls['userEmail'].invalid && myForm.controls['userEmail'].touched">
+            <p>Email is invalid</p>
+        </div>
+    </div>
+    <label>Username</label>
+    <div class="form-group">
+        <input class="form-control" name="username" formControlName="Username" [(ngModel)] = "user.Username"/>
+        <div class="alert alert-danger"
+            *ngIf="myForm.controls['Username'].invalid && myForm.controls['Username'].touched">
+            <p>Username is invalid</p>
+        </div>
+    </div>
+    <label>Password</label>
+    <div class="form-group">
+        <input type = "password" class="form-control" name="password" formControlName="UserPassword" [(ngModel)] = "user.Password"/>
+        <div class="alert alert-danger"
+            *ngIf="myForm.controls['UserPassword'].invalid && myForm.controls['UserPassword'].touched">
+            <p>Password contains invalid characters</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" [disabled]="myForm.invalid">
+            Send
+        </button>
+    </div>
+    <div *ngIf ="this.data_is_received">
+        <h1>{{this.result}}</h1>
+    </div>
+</form>
