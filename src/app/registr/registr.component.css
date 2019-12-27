@@ -1,0 +1,20 @@
+input{
+    border-radius: 3px ;
+    -webkit-border-radius: 3px; 
+    -moz-border-radius: 3px; 
+    -khtml-border-radius: 3px; 
+    background: #ffffff !important; 
+    height: 30px; 
+    width: 200px; 
+    color: #000000; 
+    font-size: 15px; 
+    font-family: Tahoma; 
+ }
+p{
+    font-size: 15px; 
+    font-family: Tahoma;
+    color: #f30b0b; 
+}
+
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}
