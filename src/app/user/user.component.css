@@ -1,0 +1,12 @@
+div{
+    margin-top: 30px; /* отступ сверху */
+    position: relative;
+    left: 500px;
+    top: 50px;
+    margin-bottom: 30px; /* отступ снизу */
+    height: 200px;
+    width: 160px;
+    margin: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font: italic bold #ff0000 ;
+}

@@ -1,5 +1,5 @@
 export function saveCookie(accessToken , refreshToken ){
-    
+
     if (accessToken != undefined)
     {  
         document.cookie = `access=${accessToken}; max-age=${5*60}; path=/`;
@@ -23,5 +23,7 @@ export function getToken(name) {
 export function deleteToken(name){
 
     if (name == "access" || name == "refresh")
-    document.cookie = `${name}=${accessToken}; max-age=-1; path=/`;
+    {
+        document.cookie = `${name}=${accessToken}; max-age=-1; path=/`;
+    }
 }

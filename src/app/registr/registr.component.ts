@@ -41,7 +41,7 @@ export class RegistrComponent {
         const user_data = {username : this.user.Username, password:this.user.Password, email: this.user.Email,
             last_name : this.user.LastName, first_name : this.user.Name};
         console.log(this.user);
-        console.log( this.httpService.postData("http://localhost:8000/api/registr/", user_data)
+        this.httpService.postData("http://localhost:8000/api/registr/", user_data)
         .subscribe(
             (data: string) => {
                 this.result=data;
@@ -49,6 +49,6 @@ export class RegistrComponent {
                 this.router.navigate(['login']);
             }
             //error => console.log(error)
-        )) ; 
+        ) ; 
     }
 }
