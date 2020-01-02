@@ -3,6 +3,10 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 import {HttpService} from '../Services/Server.Service';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
+import {saveCookie} from '../Services/CookieService';
+
+
+import { getToken } from  '../Services/CookieService';
 
 @Component({
   selector: 'login',
@@ -38,11 +42,12 @@ export class LoginComponent {
                 this.result=data;
                 this.data_is_received = true;
                 this.router.navigate(['book']);
+                saveCookie(this.result["access"],this.result["refresh"]);
+                console.log(getToken("access"));
             },
             error => {this.data_is_received = false;
                     this.data_user.password = ""}
         )) ; 
-        /// Write tokens to cache
     }
 
 }
