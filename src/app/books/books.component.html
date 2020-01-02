@@ -1,9 +1,16 @@
-    <div *ngFor="let book of books">
-        <p>title: {{book?.title}}</p>
-        <p>author: {{book?.author}}</p>
-        <p>price:  {{book?.price}}</p>
-        <p>{{book?.amount_in_storage}}</p>
-        <button [disabled]  = "!book?.amount_in_storage > 0">
-            Reserve
-        </button>
-    </div>
+<div>
+    <input type="text" [(ngModel)]="search_data"> 
+    <button (click)="Search()">Search</button>
+</div>
+<div *ngFor="let book of books">
+    <p>title: {{book?.title}}</p>
+    <p>author: {{book?.author}}</p>
+    <p>price:  {{book?.price}}</p>
+    <p>{{book?.amount_in_storage}}</p>
+    <button [disabled]  = "!book?.amount_in_storage > 0">
+         Reserve
+    </button>
+</div>
+<div *ngIf = "IsLogin">
+    <button type = "button" class = "logout" (click) = "LogOut()">Log out</button>
+</div>

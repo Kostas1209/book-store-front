@@ -10,7 +10,7 @@ export class HttpService{
     postData(path : string, data, access = null){
         if (access != null)
         { 
-            const myHeaders = new HttpHeaders().set('Authorization', 'Bearer:' +getToken("access") );
+            const myHeaders = new HttpHeaders().set('Authorization', 'Bearer ' +getToken("access") );
             return this.http.post(path, data,{headers:myHeaders}); 
         }
         //console.log(data);
@@ -30,7 +30,17 @@ export class HttpService{
             return this.http.get(path,resource );
         }
 
-        return this.http.get(path, data);
+        else{
+            const resource={
+                headers: new HttpHeaders({
+                    'Content-Type':  'application/json',
+                }),
+                body:data,
+            };
+            console.log(data);
+            return this.http.get(path, resource);
+        }
+        
     }
 
     putData(path : string, data, access = null)

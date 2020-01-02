@@ -24,6 +24,6 @@ export function deleteToken(name){
 
     if (name == "access" || name == "refresh")
     {
-        document.cookie = `${name}=${accessToken}; max-age=-1; path=/`;
+        document.cookie = `${name}=""; max-age=-1; path=/`;
     }
 }
