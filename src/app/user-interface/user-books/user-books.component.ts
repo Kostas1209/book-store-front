@@ -12,8 +12,11 @@ import { Book } from 'src/app/Models/Models';
 export class UserBooksComponent implements OnInit {
 
   books : any
-
+  isError : boolean;
+  error_message : string;
   constructor(private httpService : HttpService) {
+    this.isError = false;
+    this.error_message = '';
   }
 
   ngOnInit() {
@@ -21,7 +24,11 @@ export class UserBooksComponent implements OnInit {
     subscribe(data =>  {
                   this.books = data["books"];
                   console.log(this.books);
-                });
+                },
+              error => {
+                this.isError = true;
+                this.error_message = error.error
+              });
     console.log(this.books)
   }
 

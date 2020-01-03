@@ -19,7 +19,7 @@ export class LoginComponent {
     data_is_received : boolean = undefined;
     result:any;
     myForm : FormGroup;
-
+    error_message : string;
 
     constructor(private httpService: HttpService, private router : Router){
         this.data_user = {email:"",password:""};
@@ -46,8 +46,15 @@ export class LoginComponent {
                 //console.log(getToken("access"));
             },
             error => {this.data_is_received = false;
-                    this.data_user.password = ""}
+                    this.data_user.password = "";
+                    this.error_message = error.error;
+                
+                }
         )) ; 
+    }
+
+    Registr(){
+        this.router.navigate(['registration']);
     }
 
 }
