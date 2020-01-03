@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import {HttpService} from '../Services/Server.Service';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
 import {saveCookie} from '../Services/CookieService';
 
-
-import { getToken } from  '../Services/CookieService';
 
 @Component({
   selector: 'login',
@@ -21,6 +19,8 @@ export class LoginComponent {
     data_is_received : boolean = undefined;
     result:any;
     myForm : FormGroup;
+
+
     constructor(private httpService: HttpService, private router : Router){
         this.data_user = {email:"",password:""};
         this.myForm = new FormGroup({
@@ -43,7 +43,7 @@ export class LoginComponent {
                 this.data_is_received = true;
                 this.router.navigate(['book']);
                 saveCookie(this.result["access"],this.result["refresh"]);
-                console.log(getToken("access"));
+                //console.log(getToken("access"));
             },
             error => {this.data_is_received = false;
                     this.data_user.password = ""}

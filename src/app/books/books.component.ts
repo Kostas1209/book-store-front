@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../Services/Server.Service';
 import { HttpClient } from '@angular/common/http';
-import { Book } from '../Models/Models'
-import { deleteToken } from '../Services/CookieService';
-import { Router } from '@angular/router';
+import { Book } from '../Models/Models';
+
 
 @Component({
   selector: 'books',
@@ -15,10 +14,9 @@ export class BookComponent implements OnInit {
 
   books : Book[] = [];
   data_user :any = {};
-  search_data :string = "a";
-  IsLogin: boolean = true;
+  search_data :string = "";
 
-  constructor(private httpService : HttpService, private router : Router){}
+  constructor(private httpService : HttpService){}
 
   ngOnInit(){   
     this.httpService.getData('http://localhost:8000/api/book_catalog/',this.data_user).
@@ -34,16 +32,6 @@ export class BookComponent implements OnInit {
     this.httpService.postData('http://localhost:8000/api/search/',data_book).
     subscribe(data => this.books = data["books"]);
   }
-  
-  
-  LogOut(){
-    this.httpService.postData('http://localhost:8000/api/logout/',{},"access").
-    subscribe(data =>  
-      {
-        this.router.navigate(['login'])
-        deleteToken("access");
-        deleteToken("refresh");
-      });
-  }
+
 
 }

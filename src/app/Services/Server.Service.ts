@@ -10,6 +10,7 @@ export class HttpService{
     postData(path : string, data, access = null){
         if (access != null)
         { 
+            //console.log("authorized post");
             const myHeaders = new HttpHeaders().set('Authorization', 'Bearer ' +getToken("access") );
             return this.http.post(path, data,{headers:myHeaders}); 
         }
@@ -21,7 +22,7 @@ export class HttpService{
     {
         if(access != null)
         {
-            console.log("Authorized");
+            console.log("Authorized get");
             const myHeaders = new HttpHeaders().set('Authorization', 'Bearer ' +getToken("access") );
             const resource ={
                 headers : myHeaders,
@@ -49,8 +50,8 @@ export class HttpService{
         {
             console.log("Authorized put");
             const myHeaders = new HttpHeaders().set('Authorization', 'Bearer ' + getToken("access") );
-            console.log(getToken("access"));
-            console.log(myHeaders);
+            // console.log(getToken("access"));
+            // console.log(myHeaders);
             return this.http.put(path,data,{headers: myHeaders});
         }
 

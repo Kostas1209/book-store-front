@@ -7,11 +7,14 @@ import { AppComponent } from './app.component';
 import { RegistrModule } from './registr/registr.module';
 import { LoginModule } from "./login/login.module";
 import { BookModule } from "./books/books.module";
-import { UserModule } from './user/user.module';
+import { UserModule } from './user-info/user.module';
+import { UserInterfaceComponent } from './user-interface/user-interface.component';
+import { UserInterfaceModule } from './user-interface/user-interface.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserInterfaceComponent
   ],
   imports: [
     UserModule,
@@ -19,7 +22,8 @@ import { UserModule } from './user/user.module';
     RegistrModule,
     BookModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    UserInterfaceModule,
   ],
   bootstrap: [AppComponent]
 })

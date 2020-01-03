@@ -1,5 +1,6 @@
 
 <div>
-   <router-outlet></router-outlet>
+   <app-user-interface *ngIf="isAuthorized" [(isAuthorize)]="isAuthorized" ></app-user-interface>
+   <router-outlet ></router-outlet>
 </div>
 
