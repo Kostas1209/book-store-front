@@ -4,6 +4,7 @@ import {HttpService} from '../Services/Server.Service';
 import {User} from '../Models/Models';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
+import {deleteToken} from '../Services/CookieService';
 
 @Component({
   selector: 'registr',
@@ -18,6 +19,8 @@ export class RegistrComponent {
     user: User = new User;
     myForm : FormGroup;
     constructor(private httpService: HttpService, private router:Router){
+        deleteToken("access");
+        deleteToken("refresh");
         this.user.Name = "Tom";
         this.user.LastName = "Sawyer";
         this.myForm = new FormGroup({

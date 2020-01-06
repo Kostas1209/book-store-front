@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../Services/Server.Service';
 import { HttpClient } from '@angular/common/http';
 import { Book } from '../Models/Models';
+import {Router} from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs';
+
 
 
 @Component({
@@ -17,12 +21,11 @@ export class BookComponent implements OnInit {
   search_data :string = "";
   isError : boolean;
   error_message : string;
-  amount_of_order : number;
+   private querySubscription: Subscription;
 
-  constructor(private httpService : HttpService){
+  constructor(private httpService : HttpService,private router : Router){
     this.isError = false;
     this.error_message = '';
-    this.amount_of_order=0;
   }
 
   ngOnInit(){   
@@ -51,21 +54,16 @@ export class BookComponent implements OnInit {
               });
   }
 
-  AddToBasket(id:number,amount:number){
-    const data_book={
-      book_id:id ,
-      amount:amount,
-    };
-    this.httpService.postData('http://localhost:8000/api/user_basket/',data_book,"access").
-    subscribe(data => {
-      this.books = data["books"];
-      this.isError = false;
-    },
-    error => {
-      console.log(error);
-      this.error_message = error.error;
-      this.isError = true;   
-    });
+  ReserveBook(id : number ){
+    console.log('single_book/?id=' + id);
+    this.router.navigate(
+      ['single_book'],
+      {
+        queryParams:{
+          'id': id,
+        }
+      }
+    );// redirect to single_book?=id
   }
 
 }

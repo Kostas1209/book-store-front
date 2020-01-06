@@ -10,11 +10,15 @@ import { BookModule } from "./books/books.module";
 import { UserModule } from './user-info/user.module';
 import { UserInterfaceComponent } from './user-interface/user-interface.component';
 import { UserInterfaceModule } from './user-interface/user-interface.module';
+import { ReserveBookModule } from './reserve-book/reserve-book.module';
+import { ManagerAddBookComponent } from './manager-add-book/manager-add-book.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserInterfaceComponent
+    UserInterfaceComponent,
+    ManagerAddBookComponent,
   ],
   imports: [
     UserModule,
@@ -24,6 +28,7 @@ import { UserInterfaceModule } from './user-interface/user-interface.module';
     BrowserModule,
     AppRoutingModule,
     UserInterfaceModule,
+    ReserveBookModule,
   ],
   bootstrap: [AppComponent]
 })

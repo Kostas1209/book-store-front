@@ -1,9 +1,10 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import {HttpService} from '../Services/Server.Service';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
-import {saveCookie} from '../Services/CookieService';
+import {saveCookie,deleteToken} from '../Services/CookieService';
+
 
 
 @Component({
@@ -22,6 +23,8 @@ export class LoginComponent {
     error_message : string;
 
     constructor(private httpService: HttpService, private router : Router){
+        deleteToken("access");
+        deleteToken("refresh");
         this.data_user = {email:"",password:""};
         this.myForm = new FormGroup({
             "userEmail": new FormControl("", [
@@ -41,14 +44,13 @@ export class LoginComponent {
             (data:any) => {
                 this.result=data;
                 this.data_is_received = true;
-                this.router.navigate(['book']);
+                this.router.navigate(['books']);
                 saveCookie(this.result["access"],this.result["refresh"]);
                 //console.log(getToken("access"));
             },
             error => {this.data_is_received = false;
                     this.data_user.password = "";
                     this.error_message = error.error;
-                
                 }
         )) ; 
     }

@@ -3,7 +3,10 @@
     <div *ngFor="let item of books | keyvalue" >
         {{item.key}} : {{item.value}}
     </div>
+    <button (click)="BuyBooks()">
+        Buy
+    </button>
 </div>
 <div *ngIf= "isError == true" >
-    <p>{{error_message}}</p>
+    <p>{{message}}</p>
 </div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from 'src/app/Services/Server.Service';
-import { Book } from 'src/app/Models/Models';
 
 @Component({
   selector: 'app-user-books',
@@ -13,10 +12,10 @@ export class UserBooksComponent implements OnInit {
 
   books : any
   isError : boolean;
-  error_message : string;
+  message : string;
   constructor(private httpService : HttpService) {
     this.isError = false;
-    this.error_message = '';
+    this.message = '';
   }
 
   ngOnInit() {
@@ -27,9 +26,20 @@ export class UserBooksComponent implements OnInit {
                 },
               error => {
                 this.isError = true;
-                this.error_message = error.error
+                this.message = error.error
               });
     console.log(this.books)
   }
 
+  BuyBooks(){
+    this.httpService.postData('http://localhost:8000/api/sell_books/',{},"access").
+    subscribe(data =>  {
+      this.isError = true;
+      this.message = "Thank you for your order"; 
+    },
+    error => {
+      this.isError = true;
+      this.message = error.error
+    });
+  }
 }

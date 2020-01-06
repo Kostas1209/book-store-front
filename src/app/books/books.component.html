@@ -8,14 +8,9 @@
         <p>author: {{book?.author}}</p>
         <p>price:  {{book?.price}}</p>
         <p>{{book?.amount_in_storage}}</p>
-        <form>
-            <input type="number" name="amount" min="1" max="{{book?.amount_in_storage}}" >
-            <p>{{amount_of_order}}</p>
-            <button [disabled]  = "!book?.amount_in_storage > 0" (click)="AddToBasket(book?.id,amount.value)">
-                Reserve
-            </button>
-        </form>
-        
+        <button [disabled]  = "!book?.amount_in_storage > 0" (click)="ReserveBook(book?.id)">
+            Reserve
+        </button>
     </div>
 </div>
 <div *ngIf = "isError==true">

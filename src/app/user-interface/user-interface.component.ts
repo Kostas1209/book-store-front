@@ -26,8 +26,6 @@ export class UserInterfaceComponent implements OnInit {
         this.isAuthorize = false;
         this.IsAuthorizeChange.emit(false); /// Change IsAuthorized in general component
         this.router.navigate(['login'])
-        deleteToken("access");
-        deleteToken("refresh");
       });
   }
 
