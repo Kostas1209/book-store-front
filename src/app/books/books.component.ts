@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Book } from '../models/models';
 import {Router} from '@angular/router';
-import {BookService} from '../Services/book-service'
+import {BookService} from '../services/book'
 
 
 @Component({

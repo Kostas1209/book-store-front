@@ -1,4 +1,23 @@
-<div >
+<div>
     <button type = "button" class = "logout" (click) = "LogOut()">Log out</button>
-    <button type = "button" class = "logout" (click) = "Basket()">Your Books</button>
+</div>
+<mat-expansion-panel >
+    <mat-expansion-panel-header >
+      <mat-panel-title class="mat-badge-medium" >
+        <div >
+            <mat-icon  matBadgeSize = "small" matBadge={{books.length}} aria-label="icon">shopping_cart</mat-icon>
+        </div>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngIf= "isError == false" >
+        <div *ngFor="let item of books " >
+            {{item}}
+        </div>
+        <button (click)="BuyBooks()">
+            Buy
+        </button>
+    </div>
+</mat-expansion-panel>
+<div *ngIf= "isError == true" >
+    <p>{{error_message}}</p>
 </div>

@@ -1,5 +1,5 @@
 import { Component, DoCheck} from '@angular/core';
-import { getToken } from './Services/cookie-service';
+import { getToken, isAuthorized } from './services/cookie';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +16,6 @@ export class AppComponent implements DoCheck {
   }
   
   ngDoCheck(){
-    if(getToken("refresh") != undefined)
-    {
-      this.isAuthorized = true;
-    }
-    else{
-      this.isAuthorized = false;
-    }
+    this.isAuthorized = isAuthorized();
   }
 }

@@ -2,8 +2,8 @@ import { Component} from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
-import {saveCookie,deleteToken} from '../Services/cookie-service';
-import { UserService } from 'src/app/services/user-service';
+import {saveCookie,deleteToken} from '../services/cookie';
+import { UserService } from 'src/app/services/user';
 
 
 @Component({

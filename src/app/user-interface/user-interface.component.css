@@ -4,3 +4,12 @@
     border-radius: 8px;
     padding: 14px 40px;
 }
+
+mat-expansion-panel {
+    width: 10%;
+}
+
+.mat-badge {
+    height: 20px;
+    top: 6px;
+}

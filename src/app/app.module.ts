@@ -13,6 +13,11 @@ import { UserInterfaceModule } from './user-interface/user-interface.module';
 import { ReserveBookModule } from './reserve-book/reserve-book.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor } from './services/interseptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialAppModule } from './material.module';
+import { AuthGuard } from './services/guard';
+import { ServiceUrl } from './services/path';
+
 
 @NgModule({
   declarations: [
@@ -26,14 +31,18 @@ import { ParamInterceptor } from './services/interseptor';
     RegistrModule,
     BookModule,
     BrowserModule,
+    BrowserAnimationsModule ,
     AppRoutingModule,
     ReserveBookModule,
+    MaterialAppModule
   ],
   bootstrap: [AppComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: ParamInterceptor,
     multi: true
-  },],
+  },
+  AuthGuard,
+  ServiceUrl],
 })
 export class AppModule { }

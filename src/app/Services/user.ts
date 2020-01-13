@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import {getToken} from './cookie-service';
+import {getToken} from './cookie';
 
 
 @Injectable()
@@ -25,16 +25,18 @@ export class UserService{
     }
 
     GetUserIngo(){
-        const myHeaders = new HttpHeaders().set('Authorization', 'Bearer ' + getToken("access") );
-        return this.http.get(environment.domain + "api/user_info",{headers : myHeaders});
+        return this.http.get(environment.domain + "api/user_info");
     }
 
     ChangeUserInfo(first_name:string, last_name : string){
-        const myHeaders = new HttpHeaders().set('Authorization', 'Bearer ' + getToken("access") );
         const data ={
             "first_name" : first_name,
             "last_name" : last_name
           };
-        return this.http.put(environment.domain + "api/user_info",data,{headers: myHeaders});
+        return this.http.put(environment.domain + "api/user_info",data);
+    }
+
+    LogOut(){
+        return this.http.post(environment.domain + "api/logout/", {});
     }
 }

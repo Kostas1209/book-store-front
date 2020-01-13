@@ -1,37 +1,48 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { deleteToken } from '../Services/cookie-service';
-import { HttpService } from '../services/server.service';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/services/user';
+import { Subscription } from 'rxjs';
+import { MessageService } from '../services/server.service';
+import { deleteToken } from '../services/cookie';
+
 
 @Component({
   selector: 'app-user-interface',
   templateUrl: './user-interface.component.html',
   styleUrls: ['./user-interface.component.css'],
-  providers: [HttpService, HttpClient]
+  providers: [UserService]
 })
 export class UserInterfaceComponent implements OnInit {
-  @Input() isAuthorize:boolean;
-  @Output() IsAuthorizeChange = new EventEmitter<boolean>();
+  books : any[] = [];
+  isError : boolean;
+  subscription$: Subscription;
+  error_message: string;
 
-  constructor(private httpService : HttpService, private router : Router) { }
+  constructor(private httpService : UserService, private router : Router, private messageService : MessageService) {
+    this.isError = false;
+    this.subscription$ = this.messageService.getMessage().subscribe(
+      message => {
+         this.books.push(message.text);
+        },
+      error => {this.isError = true; this.error_message = error.message;}
+    );
+   }
 
   ngOnInit() {
   }
 
   LogOut(){
-    this.httpService.postData( environment.domain + 'api/logout/',{},"access").
+    this.httpService.LogOut().
     subscribe(data =>  
       {
-        this.isAuthorize = false;
-        this.IsAuthorizeChange.emit(false); /// Change IsAuthorized in general component
+        deleteToken('access');
+        deleteToken('refresh');
         this.router.navigate(['login'])
       });
   }
 
   Basket(){
-    this.router.navigate(['user_basket']);
+    
   }
 
 

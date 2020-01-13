@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { RegistrComponent } from './registr.component';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpService } from '../services/server.service'
+//import { HttpService } from '../services/server.service'
 
 @NgModule({
   declarations: [
@@ -16,7 +16,6 @@ import { HttpService } from '../services/server.service'
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [HttpService],
   exports: [ RegistrComponent]
 })
 export class RegistrModule { }

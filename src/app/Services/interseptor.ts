@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders, HttpClient } from '@angular/common/http';
-import { isAuthorized, getToken, deleteToken ,saveCookie} from './cookie-service';
+import { isAuthorized, getToken, deleteToken ,saveCookie} from './cookie';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 
@@ -22,6 +22,7 @@ export class ParamInterceptor implements HttpInterceptor {
                 headers: myHeaders
             });
         }
+
         //console.log(req.headers);
         return next.handle(req).pipe(
             catchError(error => { 
@@ -40,10 +41,10 @@ export class ParamInterceptor implements HttpInterceptor {
                             return next.handle(req)
                         },
                         error => { // if refresh token is not success
-                            deleteToken('access');
+                            deleteToken("access");
                             deleteToken("refresh");
-                            Observable.throw(error);
                             this.router.navigate(['login']);
+                            Observable.throw(error);
                         }
                     )
                 }
