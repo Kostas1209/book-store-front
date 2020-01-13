@@ -11,25 +11,29 @@ import { UserModule } from './user-info/user.module';
 import { UserInterfaceComponent } from './user-interface/user-interface.component';
 import { UserInterfaceModule } from './user-interface/user-interface.module';
 import { ReserveBookModule } from './reserve-book/reserve-book.module';
-import { ManagerAddBookComponent } from './manager-add-book/manager-add-book.component';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ParamInterceptor } from './services/interseptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserInterfaceComponent,
-    ManagerAddBookComponent,
+    UserInterfaceComponent
   ],
   imports: [
+    UserInterfaceModule,
     UserModule,
     LoginModule,
     RegistrModule,
     BookModule,
     BrowserModule,
     AppRoutingModule,
-    UserInterfaceModule,
     ReserveBookModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: ParamInterceptor,
+    multi: true
+  },],
 })
 export class AppModule { }

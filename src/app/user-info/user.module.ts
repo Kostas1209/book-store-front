@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
-import { HttpService } from '../Services/Server.Service';
+import { HttpService } from '../services/server.service';
 import { UserComponent } from "./user.component";
 
 @NgModule({

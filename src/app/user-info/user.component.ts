@@ -1,23 +1,24 @@
 import { Component } from '@angular/core';
-import { HttpService } from '../Services/Server.Service';
+import { HttpService } from '../services/server.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { User } from '../Models/Models'
+import { User } from '../models/models'
+import { UserService } from 'src/app/services/user-service';
 
 @Component({
   selector: 'user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
-  providers: [HttpService, HttpClient]
+  providers: [UserService, HttpClient]
 })
 export class UserComponent  {
   result: any;
   data_user :any = {};
   user: User = new User();
 
-  constructor(private httpService: HttpService, private router:Router){
+  constructor(private user_service: UserService, private router:Router){
 
-    this.httpService.getData('http://localhost:8000/api/user_info/',this.data_user, "access").
+    this.user_service.GetUserIngo().
     subscribe(data => {
       this.result = data;
       this.user.Name = data["first_name"];
@@ -27,11 +28,7 @@ export class UserComponent  {
   }
 
   Send (){
-    const data ={
-      "first_name" : this.user.Name,
-      "last_name" : this.user.LastName
-    };
-    this.httpService.putData('http://localhost:8000/api/user_info/',data, "access").
+    this.user_service.ChangeUserInfo(this.user.Name,this.user.LastName).
     subscribe(data => console.log("Success"));
   }
 

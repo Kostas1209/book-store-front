@@ -1,45 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpService } from 'src/app/Services/Server.Service';
+//import { HttpService } from 'src/app/Services/Server.Service';
+
+import { Subscription } from 'rxjs';
+import { MessageService } from 'src/app/services/server.service';
 
 @Component({
   selector: 'app-user-books',
   templateUrl: './user-books.component.html',
   styleUrls: ['./user-books.component.css'],
-  providers: [HttpService, HttpClient]
+  providers: [ HttpClient/*, MessageService*/],
 })
-export class UserBooksComponent implements OnInit {
+export class UserBooksComponent implements OnInit/*, OnDestroy*/ {
 
-  books : any
+  books : any[] = [];
   isError : boolean;
-  message : string;
-  constructor(private httpService : HttpService) {
+  subscription$: Subscription;
+  error_message: string;
+
+  constructor(private messageService: MessageService) {
     this.isError = false;
-    this.message = '';
+    this.subscription$ = this.messageService.getMessage().subscribe(
+      message => {
+         console.log(message);
+         this.books.push(message);
+        },
+      error => {this.isError = true; this.error_message = error.message;}
+    );
+
   }
 
   ngOnInit() {
-    this.httpService.getData('http://localhost:8000/api/user_basket/',{},"access").
-    subscribe(data =>  {
-                  this.books = data["books"];
-                  console.log(this.books);
-                },
-              error => {
-                this.isError = true;
-                this.message = error.error
-              });
-    console.log(this.books)
   }
 
+  // ngOnDestroy(): void {
+  //   // нужно отписаться чтобы не выгружать память
+  //   this.subscription.unsubscribe();
+  // }
+
   BuyBooks(){
-    this.httpService.postData('http://localhost:8000/api/sell_books/',{},"access").
-    subscribe(data =>  {
-      this.isError = true;
-      this.message = "Thank you for your order"; 
-    },
-    error => {
-      this.isError = true;
-      this.message = error.error
-    });
+
   }
+
+  DeleteBook(){
+
+  }
+
+
 }

@@ -1,10 +1,11 @@
 import { Component, DoCheck} from '@angular/core';
-import { getToken } from './Services/CookieService';
+import { getToken } from './Services/cookie-service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  
 })
 export class AppComponent implements DoCheck {
   title = 'book-store-frontend';

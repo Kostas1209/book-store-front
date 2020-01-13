@@ -4,8 +4,11 @@
 <p>{{book?.amount_in_storage}}</p>
 <form  novalidate >
     <input [(ngModel)]="amount_of_order" type="number" name="reserve" min="1" max={{book?.amount_in_storage}}>
-    <button (click)="AddToBasket(book?.id)">
+    <button (click)="AddBook()">
         Reserve
     </button>
 </form>
+<div *ngIf="isError">
+    {{error_message}} 
+</div>
 

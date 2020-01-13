@@ -10,6 +10,9 @@ export function saveCookie(accessToken , refreshToken ){
     }
 }
 
+export function isAuthorized(){
+    return getToken("refresh") != undefined; 
+}
 
 export function getToken(name) {
 

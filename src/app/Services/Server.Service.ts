@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {getToken} from './CookieService';
+import {getToken} from './cookie-service';
+import { Subject, Observable } from 'rxjs';
   
 @Injectable()
 export class HttpService{
@@ -59,3 +60,23 @@ export class HttpService{
     }
 }
 
+@Injectable({ providedIn: 'root' })
+export class MessageService {
+    private subject = new Subject<any>();
+
+    constructor()
+    {
+        console.log("test");
+    }
+    sendMessage(message: string): void {
+        this.subject.next({ text: message });
+    }
+ 
+    clearMessage(): void {
+        this.subject.next();
+    }
+ 
+    getMessage(): Observable<any> {
+        return this.subject.asObservable();
+    }
+}

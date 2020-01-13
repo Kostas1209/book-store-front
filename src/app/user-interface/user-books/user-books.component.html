@@ -1,12 +1,12 @@
-    
+{{books}}
 <div *ngIf= "isError == false" >
-    <div *ngFor="let item of books | keyvalue" >
-        {{item.key}} : {{item.value}}
+    <div *ngFor="let item of books " >
+        {{item}}
     </div>
     <button (click)="BuyBooks()">
         Buy
     </button>
 </div>
 <div *ngIf= "isError == true" >
-    <p>{{message}}</p>
+    <p>{{error_message}}</p>
 </div>

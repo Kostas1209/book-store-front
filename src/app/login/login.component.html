@@ -1,7 +1,7 @@
 <form [formGroup]="myForm" novalidate (ngSubmit)="submit()">
     <label>Email</label>
     <div class="form-group">
-        <input class="form-control" name="email" formControlName="userEmail" [(ngModel)] = "data_user.email"/>
+        <input class="form-control" name="email" formControlName="userEmail" [(ngModel)] = "user_email"/>
           
         <div class="alert alert-danger"
             *ngIf="myForm.controls['userEmail'].invalid && myForm.controls['userEmail'].touched">
@@ -10,9 +10,9 @@
     </div>
     <label>Password</label>
     <div class="form-group">
-        <input type = "password" class="form-control" name="password" formControlName="UserPassword" [(ngModel)] = "data_user.password"/>
+        <input type = "password" class="form-control" name="password" formControlName="UserPassword" [(ngModel)] = "user_password"/>
         <div class="alert alert-danger"
-            *ngIf="myForm.controls['UserPassword'].invalid && myForm.controls['UserPassword'].touched && data_user.password != '' ">
+            *ngIf="myForm.controls['UserPassword'].invalid && myForm.controls['UserPassword'].touched && user_password != '' ">
             <p>Password contains invalid characters</p>
         </div>
     </div>

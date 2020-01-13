@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../Services/Server.Service';
 import { HttpClient } from '@angular/common/http';
-import { Book } from '../Models/Models';
+import { Book } from '../models/models';
 import {Router} from '@angular/router';
-import { ActivatedRoute} from '@angular/router';
-import {Subscription} from 'rxjs';
-
+import {BookService} from '../Services/book-service'
 
 
 @Component({
   selector: 'books',
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.css'],
-  providers: [HttpService, HttpClient]
+  providers: [BookService, HttpClient]
 })
 export class BookComponent implements OnInit {
 
@@ -21,34 +18,31 @@ export class BookComponent implements OnInit {
   search_data :string = "";
   isError : boolean;
   error_message : string;
-   private querySubscription: Subscription;
 
-  constructor(private httpService : HttpService,private router : Router){
+  constructor(private book_service: BookService ,private router : Router){
     this.isError = false;
     this.error_message = '';
   }
 
   ngOnInit(){   
-    this.httpService.getData('http://localhost:8000/api/book_catalog/',this.data_user).
-    subscribe(data => {
-                    this.books = data["books"];
-                    console.log(this.books); 
-                  });
-    //console.log(this.books)
-  }
-
-  Search(){
-    const data_book={
-      title:this.search_data ,
-    };
-    console.log(data_book);
-    this.httpService.postData('http://localhost:8000/api/search/',data_book).
+    this.book_service.GetBookCatalog().
     subscribe(data => {
                 this.books = data["books"];
                 this.isError = false;
               },
               error => {
-                console.log(error);
+                this.error_message = error.error;
+                this.isError = true;   
+              });
+  }
+
+  Search(){
+    this.book_service.SearchBook(this.search_data).
+    subscribe(data => {
+                this.books = data["books"];
+                this.isError = false;
+              },
+              error => {
                 this.error_message = error.error;
                 this.isError = true;   
               });
