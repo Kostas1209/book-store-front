@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import {getToken} from './cookie';
+import {getToken} from './cookie.service';
 
 
 @Injectable()
@@ -40,3 +40,4 @@ export class UserService{
         return this.http.post(environment.domain + "api/logout/", {});
     }
 }
+

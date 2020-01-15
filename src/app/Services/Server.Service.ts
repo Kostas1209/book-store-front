@@ -64,7 +64,7 @@ export class MessageService {
 
     constructor(){}
     
-    sendMessage(message: string): void {
+    sendMessage(message: any): void {
         this.subject.next({ text: message });
     }
  

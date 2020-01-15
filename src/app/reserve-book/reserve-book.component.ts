@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Book } from '../models/models';
-import { BookService } from 'src/app/services/book'
+import { BookService } from 'src/app/services/book.service'
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from '../services/server.service';
 import { Observable } from 'rxjs';
@@ -45,7 +45,8 @@ export class ReserveBookComponent implements OnInit {
   }
 
   AddBook(){
-    this.messageService.sendMessage("safa");
+    this.messageService.sendMessage({id:this.book.id, amount:this.amount_of_order, title:this.book.title});
+    this.book.amount_in_storage -= this.amount_of_order;
   }
 
   clearMessages(): void {

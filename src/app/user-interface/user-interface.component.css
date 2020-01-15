@@ -6,10 +6,18 @@
 }
 
 mat-expansion-panel {
-    width: 10%;
+    width: 15%;
 }
 
 .mat-badge {
     height: 20px;
     top: 6px;
+}
+
+.icon {
+    transform: scale(0.8);
+}
+
+.button1 {
+    padding: 1px;
 }

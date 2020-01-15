@@ -2,7 +2,7 @@ export function saveCookie(accessToken , refreshToken ){
 
     if (accessToken != undefined)
     {  
-        document.cookie = `access=${accessToken}; max-age=${5*60}; path=/`;
+        document.cookie = `access=${accessToken}; max-age=${24*60*60}; path=/`;
     }
     if (refreshToken != undefined)
     {

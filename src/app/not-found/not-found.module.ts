@@ -1,16 +1,15 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { UserBooksComponent } from './user-books.component';
+
+import { NotFoundComponent } from './not-found.component';
 
 @NgModule({
   declarations: [
-    UserBooksComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
   ],
-  bootstrap: [],
-  exports:[UserBooksComponent]
+  exports: [ NotFoundComponent]
 })
-export class UserBookModule { }
+export class NotFoundModule { }

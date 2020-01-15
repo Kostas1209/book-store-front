@@ -1,5 +1,5 @@
 import { Component, DoCheck} from '@angular/core';
-import { getToken, isAuthorized } from './services/cookie';
+import { getToken, isAuthorized } from './services/cookie.service';
 
 @Component({
   selector: 'app-root',

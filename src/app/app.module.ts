@@ -16,13 +16,17 @@ import { ParamInterceptor } from './services/interseptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialAppModule } from './material.module';
 import { AuthGuard } from './services/guard';
-import { ServiceUrl } from './services/path';
+import { ServiceUrl } from './services/path.service';
+import { NotFoundModule } from './not-found/not-found.module';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderService } from './services/loader.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserInterfaceComponent
+    UserInterfaceComponent,
+    LoaderComponent,
   ],
   imports: [
     UserInterfaceModule,
@@ -34,7 +38,9 @@ import { ServiceUrl } from './services/path';
     BrowserAnimationsModule ,
     AppRoutingModule,
     ReserveBookModule,
-    MaterialAppModule
+    MaterialAppModule,
+    NotFoundModule,
+    
   ],
   bootstrap: [AppComponent],
   providers: [{
@@ -43,6 +49,7 @@ import { ServiceUrl } from './services/path';
     multi: true
   },
   AuthGuard,
-  ServiceUrl],
+  ServiceUrl,
+  LoaderService],
 })
 export class AppModule { }

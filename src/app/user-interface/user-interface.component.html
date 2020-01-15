@@ -1,5 +1,6 @@
 <div>
     <button type = "button" class = "logout" (click) = "LogOut()">Log out</button>
+    <button type = "button" class = "logout" (click) = "goToBooks()">Books</button>
 </div>
 <mat-expansion-panel >
     <mat-expansion-panel-header >
@@ -11,10 +12,16 @@
     </mat-expansion-panel-header>
     <div *ngIf= "isError == false" >
         <div *ngFor="let item of books " >
-            {{item}}
+            {{item.title}}: {{item.amount}}  
+            <!-- <button class = "button1">
+                <mat-icon class="icon" aria-label="icon">delete</mat-icon>
+            </button> -->
         </div>
         <button (click)="BuyBooks()">
             Buy
+        </button>
+        <button (click)="DeleteBooks()">
+            Delete
         </button>
     </div>
 </mat-expansion-panel>

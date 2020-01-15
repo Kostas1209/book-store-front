@@ -1,3 +1,6 @@
+<button *ngIf="!isLogin" (click)="Login()">
+    Login
+</button>
 <div>
         <input type="text" [(ngModel)]="search_data"> 
         <button (click)="Search()">Search</button>

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Book } from '../models/models';
 import {Router} from '@angular/router';
-import {BookService} from '../services/book'
+import {BookService} from '../services/book.service'
+import {isAuthorized} from '../services/cookie.service'
 
 
 @Component({
@@ -13,6 +14,7 @@ import {BookService} from '../services/book'
 })
 export class BookComponent implements OnInit {
 
+  isLogin :boolean;
   books : Book[] = [];
   data_user :any = {};
   search_data :string = "";
@@ -20,6 +22,7 @@ export class BookComponent implements OnInit {
   error_message : string;
 
   constructor(private book_service: BookService ,private router : Router){
+    this.isLogin = isAuthorized();
     this.isError = false;
     this.error_message = '';
   }
@@ -49,7 +52,6 @@ export class BookComponent implements OnInit {
   }
 
   ReserveBook(id : number ){
-    console.log('single_book/?id=' + id);
     this.router.navigate(
       ['single_book'],
       {
@@ -58,6 +60,11 @@ export class BookComponent implements OnInit {
         }
       }
     );// redirect to single_book?=id
+  }
+
+  Login()
+  {
+    this.router.navigate(['login']);
   }
 
 }

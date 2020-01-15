@@ -3,8 +3,8 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 import {User} from '../models/models';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
-import {deleteToken} from '../services/cookie';
-import {UserService} from 'src/app/services/user';
+import {deleteToken} from '../services/cookie.service';
+import {UserService} from 'src/app/services/user.service';
 
 @Component({
   selector: 'registr',

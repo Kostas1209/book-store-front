@@ -1,9 +1,9 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user';
+import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../services/server.service';
-import { deleteToken } from '../services/cookie';
+import { deleteToken } from '../services/cookie.service';
 
 
 @Component({
@@ -18,11 +18,13 @@ export class UserInterfaceComponent implements OnInit {
   subscription$: Subscription;
   error_message: string;
 
-  constructor(private httpService : UserService, private router : Router, private messageService : MessageService) {
+  constructor(private httpService : UserService, private router : Router, 
+    private messageService : MessageService) {
     this.isError = false;
     this.subscription$ = this.messageService.getMessage().subscribe(
       message => {
-         this.books.push(message.text);
+        console.log(message.text);
+         this.AddBookToBasket(message.text);
         },
       error => {this.isError = true; this.error_message = error.message;}
     );
@@ -41,9 +43,31 @@ export class UserInterfaceComponent implements OnInit {
       });
   }
 
-  Basket(){
+  DeleteBooks()
+  {
     
   }
 
+  goToBooks()
+  {
+    this.router.navigate(['books']);
+  }
+
+  BuyBooks(){
+    
+  }
+
+  AddBookToBasket(book)
+  {
+    for(var i=0;i<this.books.length;++i)
+    {
+       if(this.books[i].id == book.id)
+       {
+          this.books[i].amount += book.amount;
+          return 
+       }
+    }
+    this.books.push(book);
+  }
 
 }
