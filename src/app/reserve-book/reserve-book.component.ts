@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Book } from '../models/models';
 import { BookService } from 'src/app/services/book.service'
 import { ActivatedRoute } from '@angular/router';
-import { MessageService } from '../services/server.service';
-import { Observable } from 'rxjs';
+import { MessageService, UserBasketService } from '../services/server.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-reserve-book',
@@ -18,13 +18,25 @@ export class ReserveBookComponent implements OnInit {
   isError : boolean;
   error_message : string;
   amount_of_order =  1;
+  subject: Subscription;
 
-
-  constructor(private book_service:BookService, private route:ActivatedRoute, private messageService: MessageService) { 
+  constructor(private book_service:BookService, private route:ActivatedRoute, private messageService: MessageService,
+    private userBooks : UserBasketService) { 
     //console.log(router.url);
     this.book = new Book;
     this.isError = false;
     this.error_message = '';
+
+    this.subject = messageService.getMessage().subscribe(
+      data => {
+        console.log(data);
+            if (this.book.id === data.text.id)
+            {
+              this.book.amount_in_storage += data.text.amount;
+            }
+      }
+    );
+
   }
 
   ngOnInit() {
@@ -36,6 +48,12 @@ export class ReserveBookComponent implements OnInit {
     this.book_service.SingleBook(<number>this.book.id).
     subscribe(data => {
                 this.book = data["book"];
+                this.userBooks.books.forEach(element => {
+                  if(element.id === this.book.id)
+                  {
+                    this.book.amount_in_storage -= element.amount;
+                  }
+                });
                 this.isError = false;
               },
               error => {  
@@ -45,7 +63,8 @@ export class ReserveBookComponent implements OnInit {
   }
 
   AddBook(){
-    this.messageService.sendMessage({id:this.book.id, amount:this.amount_of_order, title:this.book.title});
+    this.userBooks.AddBook({id:this.book.id, amount:this.amount_of_order, title:this.book.title});
+    //this.messageService.sendMessage({id:this.book.id, amount:this.amount_of_order, title:this.book.title});
     this.book.amount_in_storage -= this.amount_of_order;
   }
 

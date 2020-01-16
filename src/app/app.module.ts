@@ -20,6 +20,7 @@ import { ServiceUrl } from './services/path.service';
 import { NotFoundModule } from './not-found/not-found.module';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './services/loader.service';
+import { UserBasketService } from './services/server.service';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { LoaderService } from './services/loader.service';
   },
   AuthGuard,
   ServiceUrl,
-  LoaderService],
+  LoaderService,
+  UserBasketService],
 })
 export class AppModule { }

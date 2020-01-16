@@ -4,6 +4,8 @@ import { Book } from '../models/models';
 import {Router} from '@angular/router';
 import {BookService} from '../services/book.service'
 import {isAuthorized} from '../services/cookie.service'
+import { MessageService, UserBasketService } from '../services/server.service';
+import { Subscription, Subject } from 'rxjs';
 
 
 @Component({
@@ -20,11 +22,23 @@ export class BookComponent implements OnInit {
   search_data :string = "";
   isError : boolean;
   error_message : string;
+  subject : Subscription;
 
-  constructor(private book_service: BookService ,private router : Router){
+  constructor(private book_service: BookService ,private router : Router, private userBooks : UserBasketService,
+    private messageService : MessageService){
     this.isLogin = isAuthorized();
     this.isError = false;
     this.error_message = '';
+    this.subject = messageService.getMessage().subscribe(
+      data => {
+          this.books.forEach(element => {
+            if (element.id === data.text.id)
+            {
+              element.amount_in_storage += data.text.amount;
+            }
+         });
+      }
+    )
   }
 
   ngOnInit(){   
@@ -32,6 +46,7 @@ export class BookComponent implements OnInit {
     subscribe(data => {
                 this.books = data["books"];
                 this.isError = false;
+                this.recountAmount();
               },
               error => {
                 this.error_message = error.error;
@@ -65,6 +80,19 @@ export class BookComponent implements OnInit {
   Login()
   {
     this.router.navigate(['login']);
+  }
+
+
+  private recountAmount()
+  {
+    this.books.forEach(element => {
+       this.userBooks.books.forEach(book => {
+         if(element.id == book.id)
+         {
+           element.amount_in_storage -= book.amount;
+         }
+       });
+    }); 
   }
 
 }

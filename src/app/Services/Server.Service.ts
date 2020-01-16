@@ -1,62 +1,7 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { idText } from 'typescript';
   
-// @Injectable()
-// export class HttpService{
-  
-//     constructor(private http: HttpClient){ }
-     
-//     postData(path : string, data, access = null){
-//         if (access != null)
-//         { 
-//             //console.log("authorized post");
-//             const myHeaders = new HttpHeaders().set('Authorization', 'Bearer ' +getToken("access") );
-//             return this.http.post(path, data,{headers:myHeaders}); 
-//         }
-//         //console.log(data);
-//         return this.http.post(path, data);
-//     }
-
-//     getData(path : string , data, access = null)
-//     {
-//         if(access != null)
-//         {
-//             console.log("Authorized get");
-//             const myHeaders = new HttpHeaders().set('Authorization', 'Bearer ' +getToken("access") );
-//             const resource ={
-//                 headers : myHeaders,
-//                 body : data,
-//             };
-//             return this.http.get(path,resource );
-//         }
-
-//         else{
-//             const resource={
-//                 headers: new HttpHeaders({
-//                     'Content-Type':  'application/json',
-//                 }),
-//                 body:data,
-//             };
-//             console.log(data);
-//             return this.http.get(path, resource);
-//         }
-        
-//     }
-
-//     putData(path : string, data, access = null)
-//     {
-//         if(access != null)
-//         {
-//             console.log("Authorized put");
-//             const myHeaders = new HttpHeaders().set('Authorization', 'Bearer ' + getToken("access") );
-//             // console.log(getToken("access"));
-//             // console.log(myHeaders);
-//             return this.http.put(path,data,{headers: myHeaders});
-//         }
-
-//         return this.http.put(path, data);
-//     }
-// }
 
 @Injectable({ providedIn: 'root' })
 export class MessageService {
@@ -75,4 +20,89 @@ export class MessageService {
     getMessage(): Observable<any> {
         return this.subject.asObservable();
     }
+}
+
+@Injectable({ providedIn: 'root' })
+export class UserBasketService
+{
+    books : any[] = [];
+
+    constructor(private messageService : MessageService){}
+
+    AddBook(book)
+    {
+        for(var i=0;i<this.books.length;++i)
+        {
+            if(this.books[i].id == book.id)
+            {
+                this.books[i].amount += book.amount;
+                return 
+            }
+        }
+        this.books.push(book);
+    }
+
+    DeleteBook(id : number)
+    {
+        var nomer = this.InBasket(id);
+        if(nomer === null)
+            return ;
+        
+        this.books.splice(nomer,1);
+    }
+
+    InBasket(id : number)
+    {
+        for (var i = 0;i < this.books.length; i++)
+        {
+            if (this.books[i].id === id)
+            {
+                return i;
+            }
+        }
+        return null;
+        ///return number of element of null if not exist
+
+
+        // this.books.sort(this.compareFunction);
+        // // this.books.forEach(element => {
+        // //     console.log(element);
+        // // });
+        // var a =0,b=this.books.length;
+        // var m;
+        // while(a-b >= 1)
+        // {
+        //     m = Math.floor( (a + b)/2 );
+        //     if (id === this.books[m].id)
+        //     {
+        //         return  m;
+        //     }
+
+        //     if (id < this.books[m].id)
+        //     {
+        //         b = m; 
+        //     }
+        //     else{
+        //         a = m;
+        //     }
+        // }
+        // if (id === this.books[a].id)
+        // {
+        //     return a;
+        // }
+        // else{
+        //     return null;
+        // }
+
+    }
+
+    // private compareFunction(a, b) : number
+    // {
+    //     if (a.id > b.id)
+    //         return 1;
+    //     if (a.id === b.id)
+    //         return 0;
+    //     if (a.id < b.id)
+    //         return -1;
+    // }
 }
