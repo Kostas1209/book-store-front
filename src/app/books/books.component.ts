@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {BookService} from '../services/book.service'
 import {isAuthorized} from '../services/cookie.service'
 import { MessageService, UserBasketService } from '../services/server.service';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription} from 'rxjs';
 
 
 @Component({

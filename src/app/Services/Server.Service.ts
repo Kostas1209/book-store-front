@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { idText } from 'typescript';
+import { HttpBackend } from '@angular/common/http';
+import { BookService } from './book.service';
   
 
 @Injectable({ providedIn: 'root' })
@@ -27,7 +29,7 @@ export class UserBasketService
 {
     books : any[] = [];
 
-    constructor(private messageService : MessageService){}
+    constructor(private messageService : MessageService, private bookService : BookService){}
 
     AddBook(book)
     {
@@ -94,6 +96,18 @@ export class UserBasketService
         //     return null;
         // }
 
+    }
+
+    BuyBooks()
+    {
+        var books_for_send = [];
+        this.books.forEach(element => {
+            books_for_send.push({id:element.id, amount:element.amount});
+        });
+        this.bookService.SellBooks(books_for_send).subscribe(
+            success => console.log('success'),
+            error => console.log(error.error)
+        );
     }
 
     // private compareFunction(a, b) : number

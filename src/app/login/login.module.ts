@@ -1,9 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
+//import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LoginComponent } from "./login.component";
-
+import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+//import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -11,9 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
       ],
     imports: [
         FormsModule,
-        BrowserModule,
+        CommonModule,
+       // BrowserModule,
         ReactiveFormsModule,
-        HttpClientModule
+       // HttpClientModule
       ],
     exports: [ LoginComponent]
 })

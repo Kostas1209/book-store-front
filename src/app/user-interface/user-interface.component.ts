@@ -1,7 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { Subscription } from 'rxjs';
 import { MessageService, UserBasketService } from '../services/server.service';
 import { deleteToken } from '../services/cookie.service';
 
@@ -54,7 +53,8 @@ export class UserInterfaceComponent implements OnInit {
   }
 
   BuyBooks(){
-
+    this.books.BuyBooks();
+    this.books.books = [];
   }
 
   // AddBookToBasket(book)

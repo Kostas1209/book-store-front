@@ -25,4 +25,9 @@ export class BookService{
         return this.http.get(environment.domain + 'api/single_book/?id=' + book_id);
     }
 
+    SellBooks(books)
+    {
+        return this.http.post(environment.domain + 'api/sell_books/',books);
+    }
+
 } 

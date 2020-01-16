@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import {getToken} from './cookie.service';
 
 
 @Injectable()
@@ -33,11 +32,17 @@ export class UserService{
             "first_name" : first_name,
             "last_name" : last_name
           };
-        return this.http.put(environment.domain + "api/user_info",data);
+        return this.http.put(environment.domain + "api/user_info/",data);
     }
 
     LogOut(){
         return this.http.post(environment.domain + "api/logout/", {});
     }
+
+    Refresh(refresh, access){
+        return this.http.post(environment.domain + "api/refresh/", {refresh: refresh, access: access});
+    }
+
+
 }
 

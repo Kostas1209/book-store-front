@@ -60,5 +60,9 @@ export class LoginComponent {
 
     Registr(){
         this.router.navigate(['registration']);    }
+    
+    BookCatalog(){
+        this.router.navigate(['books']);    
+    }
 
 }
