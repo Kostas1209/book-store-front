@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Book } from 'src/app/models/models';
  
 @Injectable()
 export class BookService{
@@ -27,7 +26,7 @@ export class BookService{
 
     SellBooks(books)
     {
-        return this.http.post(environment.domain + 'api/sell_books/',books);
+        return this.http.post(environment.domain + 'api/sell_books/',{books : books});
     }
 
 } 

@@ -101,7 +101,7 @@ export class ParamInterceptor implements HttpInterceptor{
                     return this.handle401Error(req,next);
                 }
                 else{
-                    this.snacker.open("Ooops");
+                    this.snacker.open("Ooops","Undo");
                     this.example.pipe(
                         delay(2000)
                     ).subscribe(

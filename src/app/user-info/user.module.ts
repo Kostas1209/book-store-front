@@ -4,9 +4,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { UserComponent } from "./user.component";
 import { CommonModule } from "@angular/common";
+import { SafeHtmlPipe } from '../services/pipes';
 
 @NgModule({
-    declarations: [ UserComponent],
+    declarations: [ UserComponent, SafeHtmlPipe],
     imports: [
         //BrowserModule,
         //HttpClientModule,

@@ -57,6 +57,11 @@ export class UserInterfaceComponent implements OnInit {
     this.books.books = [];
   }
 
+  goToUserCabinet()
+  {
+    this.router.navigate(['user']);
+  }
+
   // AddBookToBasket(book)
   // {
   //   this.books.AddBook(book);

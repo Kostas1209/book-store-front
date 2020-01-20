@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { idText } from 'typescript';
-import { HttpBackend } from '@angular/common/http';
 import { BookService } from './book.service';
+import { MatSnackBar } from '@angular/material';
   
 
 @Injectable({ providedIn: 'root' })
@@ -29,7 +28,8 @@ export class UserBasketService
 {
     books : any[] = [];
 
-    constructor(private messageService : MessageService, private bookService : BookService){}
+    constructor(private messageService : MessageService, private bookService : BookService,
+        private snacker : MatSnackBar){}
 
     AddBook(book)
     {
@@ -105,7 +105,7 @@ export class UserBasketService
             books_for_send.push({id:element.id, amount:element.amount});
         });
         this.bookService.SellBooks(books_for_send).subscribe(
-            success => console.log('success'),
+            success => this.snacker.open("You buy books","Undo"),
             error => console.log(error.error)
         );
     }

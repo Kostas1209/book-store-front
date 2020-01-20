@@ -11,3 +11,6 @@
         <button class="btn btn-default" (click)="Send()">change</button>
     </div>
 </form>
+<img style='display:block; width:100px;height:100px;' id='base64image'  [src]="image | safeHtml"/>
+    <input type="file" name="photo" accept="image/*,image/jpeg" (change)="addPhoto($event)">
+    <button (click)="SendPhoto()">Send</button>

@@ -42,6 +42,16 @@ export class UserService{
     Refresh(refresh, access){
         return this.http.post(environment.domain + "api/refresh/", {refresh: refresh, access: access});
     }
+    
+    SendUserPhoto(image:any)
+    {
+        return this.http.post(environment.domain + 'api/user_avatar/', {image : image});
+    }
+
+    GetUserAvatar()
+    {
+        return this.http.get(environment.domain + 'api/user_avatar/');
+    }
 
 
 }
