@@ -5,6 +5,7 @@ import { FormsModule }   from '@angular/forms';
 import { UserComponent } from "./user.component";
 import { CommonModule } from "@angular/common";
 import { SafeHtmlPipe } from '../services/pipes';
+import { UserRoutingModule } from './user-routing.module';
 
 @NgModule({
     declarations: [ UserComponent, SafeHtmlPipe],
@@ -12,7 +13,8 @@ import { SafeHtmlPipe } from '../services/pipes';
         //BrowserModule,
         //HttpClientModule,
         CommonModule,
-        FormsModule
+        FormsModule,
+        UserRoutingModule,
       ],
     exports: [ UserComponent]
 })

@@ -23,7 +23,7 @@ export class UserService{
         return this.http.post(environment.domain + "api/registr/", user_info);
     }
 
-    GetUserIngo(){
+    GetUserInfo(){
         return this.http.get(environment.domain + "api/user_info");
     }
 

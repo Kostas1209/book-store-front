@@ -20,7 +20,7 @@ export class UserComponent implements OnInit  {
 
   constructor(private user_service: UserService, private router:Router){
     this.reader = new FileReader();
-    this.user_service.GetUserIngo().
+    this.user_service.GetUserInfo().
     subscribe(data => {
       this.result = data;
       this.user.Name = data["first_name"];
@@ -34,7 +34,6 @@ export class UserComponent implements OnInit  {
     subscribe(
       success => {
         this.image = 'data:image/jpeg;base64,' + success;
-        console.log(this.image);
       },
       error => {
         console.log(error.error);

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReserveBookComponent} from './reserve-book.component';
 import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
+import { ReserveBookRoutingModule } from './reserve-book-routing';
 //import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
     //BrowserModule,
     //HttpClientModule,
     ReactiveFormsModule,
+    ReserveBookRoutingModule,
   ],
   exports: [ReserveBookComponent]
 })

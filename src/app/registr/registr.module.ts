@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 //import { HttpClientModule } from '@angular/common/http';
 //import { HttpService } from '../services/server.service'
 import { CommonModule } from '@angular/common';
+import { RegistrRoutingModule } from './registr-routing.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     //BrowserModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    RegistrRoutingModule,
     //HttpClientModule
   ],
   exports: [ RegistrComponent]
