@@ -21,16 +21,10 @@
             Send
         </button>
     </div>
-    <div *ngIf ="this.data_is_received == true">
-        <h1>Login is success</h1>
-    </div>
-    <div *ngIf ="this.data_is_received == false">
-        Password wrong
-    </div>
 </form>
-<button (click) = "BookCatalog()">
+<button (click) = "bookCatalog()">
     book catalog
 </button>
-<button (click) = "Registr()" >
+<button (click) = "registr()" >
     log up
 </button>

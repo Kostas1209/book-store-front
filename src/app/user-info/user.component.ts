@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/models'
 import { UserService } from 'src/app/services/user.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'],
+  styleUrls: ['./user.component.scss'],
   providers: [UserService, HttpClient]
 })
 export class UserComponent implements OnInit  {
@@ -17,10 +18,11 @@ export class UserComponent implements OnInit  {
   user: User = new User();
   reader:FileReader;
   image : string;
+  duration_for_snacker: number = 5;
 
-  constructor(private user_service: UserService, private router:Router){
+  constructor(private user_service: UserService, private router:Router, private snacker : MatSnackBar){
     this.reader = new FileReader();
-    this.user_service.GetUserInfo().
+    this.user_service.getUserInfo().
     subscribe(data => {
       this.result = data;
       this.user.Name = data["first_name"];
@@ -30,19 +32,21 @@ export class UserComponent implements OnInit  {
   }
 
   ngOnInit(){
-    this.user_service.GetUserAvatar().
+    this.user_service.getUserAvatar().
     subscribe(
       success => {
         this.image = 'data:image/jpeg;base64,' + success;
       },
       error => {
-        console.log(error.error);
+        this.snacker.open("image not load","OK",{
+          duration: this.duration_for_snacker * 1000
+      });
       }
     )
   }
 
-  Send (){
-    this.user_service.ChangeUserInfo(this.user.Name,this.user.LastName).
+  send (){
+    this.user_service.changeUserInfo(this.user.Name,this.user.LastName).
     subscribe(data => console.log("Success"));
   }
 
@@ -53,19 +57,21 @@ export class UserComponent implements OnInit  {
     
   }
 
-  SendPhoto()
+  sendPhoto()
   {
     if (this.files) {
-      this.user_service.SendUserPhoto(this.reader.result).
+      this.user_service.sendUserPhoto(this.reader.result).
       subscribe(
         success => {
-          this.user_service.GetUserAvatar().
+          this.user_service.getUserAvatar().
           subscribe(
             success => {
               this.image = 'data:image/jpeg;base64,' + success;
             },
             error => {
-              console.log(error.error);
+              this.snacker.open("Image not load","OK",{
+                duration: this.duration_for_snacker * 1000
+              });
             }
           );
         }

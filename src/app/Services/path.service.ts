@@ -14,12 +14,12 @@ export class ServiceUrl {
               );  
               localStorage.setItem('currentUrl',router.url);
               localStorage.setItem('params',JSON.stringify(result));
-              this.Show();
+              this.show();
             };
           });
     }
 
-    Show()
+    show()
     {
       console.log(this.getCurrent());
       console.log(this.getParams());

@@ -14,3 +14,24 @@ export class SafeHtmlPipe implements PipeTransform {
   }
  
 }   
+
+
+@Pipe({
+  name: 'amountSymbols'
+})
+export class AmountSymbolsPipe implements PipeTransform {
+ 
+  constructor(private sanitizer: DomSanitizer) {
+  }
+ 
+  transform(value: string, amount : number): string {
+    if(amount >= value.length)
+    {
+      return value;
+    }
+    else{
+      return value.slice(0,amount) + "...";
+    }
+  }
+ 
+}  

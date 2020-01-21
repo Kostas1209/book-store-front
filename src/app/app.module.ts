@@ -19,12 +19,14 @@ import { UserService } from './services/user.service';
 import { CommonModule } from '@angular/common';
 import { BookService } from './services/book.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { AmountSymbolsPipe } from './services/pipes';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserInterfaceComponent,
     LoaderComponent,
+    //AmountSymbolsPipe
   ],
   imports: [
     HttpClientModule,

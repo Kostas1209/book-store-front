@@ -36,8 +36,16 @@ export class ParamInterceptor implements HttpInterceptor{
     if (!this.isRefreshing) {
         this.isRefreshing = true;
         this.refreshTokenSubject.next(null);
-        return this.userService.Refresh(getToken('refresh'), getToken('access')).pipe(
-        catchError(error => {this.Redirect(); return of(false);} ),
+        return this.userService.refresh(getToken('refresh'), getToken('access')).pipe(
+        catchError(error => {
+            if(error.status === 401)
+            {
+                this.Redirect(); 
+                return of(false);
+            }
+            console.log(error);
+
+        } ),
         switchMap((token: any) => {
             console.log(token);
             this.isRefreshing = false;
@@ -105,17 +113,14 @@ export class ParamInterceptor implements HttpInterceptor{
                     if(error.status === 500)
                     {
                         text = "server error. Try to reconnect";
+                        this.snacker.open(text,"Undo");
                     }
-                    else{
-                        text = error.statusText;
-                    }
-                    this.snacker.open(text,"Undo");
                     this.example.pipe(
                         delay(2000)
                     ).subscribe(
                         () => {this.loaderService.isLoading.next(false); }
                     );
-                    return Observable.throw(error);
+                    return throwError(error);
                 }
             })
         );

@@ -1,5 +1,5 @@
 <div>
-    <button type = "button"  (click) = "LogOut()">Log out</button>
+    <button type = "button"  (click) = "logOut()">Log out</button>
     <button type = "button"  (click) = "goToBooks()">Books</button>
     <button type = "button"  (click) = "goToUserCabinet()">My cabinet</button>
 </div>
@@ -12,11 +12,11 @@
     <div *ngIf= "isError == false" >
         <div *ngFor="let item of books.books " >
             {{item.title}}: {{item.amount}}  
-            <button  (click)="DeleteBook(item.id, item.amount)">
+            <button  (click)="deleteBook(item.id, item.amount)">
                 <mat-icon class="icon" aria-label="icon">delete</mat-icon>
             </button>
         </div>
-        <button (click)="BuyBooks()">
+        <button (click)="buyBooks()">
             Buy
         </button>
     </div>

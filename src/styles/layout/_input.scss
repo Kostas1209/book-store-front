@@ -13,3 +13,6 @@ input[type=text]:focus {
     background-color: white;
     background-repeat: no-repeat;
 }
+
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}

@@ -9,12 +9,12 @@ export class BookService{
 
     constructor(private http: HttpClient){ }
 
-    GetBookCatalog(){
+    getBookCatalog(){
         return this.http.get(environment.domain + 'api/book_catalog/',{} )
         
     }
 
-    SearchBook(title: string){
+    searchBook(title: string){
         const data_book={
             title:title 
         };
@@ -22,11 +22,11 @@ export class BookService{
         
     }
 
-    SingleBook(book_id : number){
+    singleBook(book_id : number){
         return this.http.get(environment.domain + 'api/single_book/?id=' + book_id);
     }
 
-    SellBooks(books)
+    sellBooks(books)
     {
         return this.http.post(environment.domain + 'api/sell_books/',{books : books});
     }

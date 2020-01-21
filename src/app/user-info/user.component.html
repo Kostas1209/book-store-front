@@ -8,9 +8,9 @@
         <input class="form-control" name="lastname" [(ngModel)]="user.LastName" />
     </div>
     <div class="form-group">
-        <button class="btn btn-default" (click)="Send()">change</button>
+        <button class="btn btn-default" (click)="send()">change</button>
     </div>
 </form>
 <img style='display:block; width:100px;height:100px;' id='base64image'  [src]="image | safeHtml"/>
     <input type="file" name="photo" accept="image/*,image/jpeg" (change)="addPhoto($event)">
-    <button (click)="SendPhoto()">Send</button>
+    <button (click)="sendPhoto()">Send</button>

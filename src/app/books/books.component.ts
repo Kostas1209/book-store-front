@@ -1,12 +1,13 @@
 import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Book } from '../models/models';
-import {Router} from '@angular/router';
-import {BookService} from '../services/book.service'
-import {isAuthorized} from '../services/cookie.service'
+import { Router } from '@angular/router';
+import { BookService } from '../services/book.service'
+import { isAuthorized } from '../services/cookie.service'
 import { MessageService, UserBasketService } from '../services/server.service';
 import { Subscription, fromEvent} from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -24,9 +25,10 @@ export class BookComponent implements OnInit, AfterViewInit {
   isError : boolean;
   error_message : string;
   subject : Subscription;
+  duration_for_snacker: number = 5;
 
   constructor(private book_service: BookService ,private router : Router, private userBooks : UserBasketService,
-    private messageService : MessageService){
+    private messageService : MessageService, private snacker : MatSnackBar){
     this.isLogin = isAuthorized();
     this.isError = false;
     this.error_message = '';
@@ -43,7 +45,7 @@ export class BookComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(){   
-    this.book_service.GetBookCatalog().
+    this.book_service.getBookCatalog().
     subscribe(data => {
                 this.books = data["books"];
                 this.isError = false;
@@ -69,23 +71,24 @@ export class BookComponent implements OnInit, AfterViewInit {
         debounceTime(1000)
     )
     .subscribe(
-      success => this.Search()
+      success => this.search()
     );
   }
 
-  Search(){
-    this.book_service.SearchBook(this.search_data).
+  search(){
+    this.book_service.searchBook(this.search_data).
     subscribe(data => {
                 this.books = data["books"];
                 this.isError = false;
               },
               error => {
-                this.error_message = error.error;
-                this.isError = true;   
+                this.snacker.open("Nothing not found","Ok",{
+                  duration: this.duration_for_snacker * 1000
+              }); 
               });
   }
 
-  ReserveBook(id : number ){
+  reserveBook(id : number ){
     this.router.navigate(
       ['single_book'],
       {
@@ -96,12 +99,12 @@ export class BookComponent implements OnInit, AfterViewInit {
     );// redirect to single_book?=id
   }
 
-  Login()
+  login()
   {
     this.router.navigate(['login']);
   }
 
-  private recountAmount()
+  recountAmount()
   {
     this.books.forEach(element => {
        this.userBooks.books.forEach(book => {

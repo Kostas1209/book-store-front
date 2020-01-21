@@ -31,7 +31,7 @@ export class UserBasketService
     constructor(private messageService : MessageService, private bookService : BookService,
         private snacker : MatSnackBar){}
 
-    AddBook(book)
+    addBook(book)
     {
         for(var i=0;i<this.books.length;++i)
         {
@@ -44,7 +44,7 @@ export class UserBasketService
         this.books.push(book);
     }
 
-    DeleteBook(id : number)
+    deleteBook(id : number)
     {
         var nomer = this.InBasket(id);
         if(nomer === null)
@@ -62,60 +62,17 @@ export class UserBasketService
                 return i;
             }
         }
-        ///return number of element of null if not exist
-
-
-        // this.books.sort(this.compareFunction);
-        // // this.books.forEach(element => {
-        // //     console.log(element);
-        // // });
-        // var a =0,b=this.books.length;
-        // var m;
-        // while(a-b >= 1)
-        // {
-        //     m = Math.floor( (a + b)/2 );
-        //     if (id === this.books[m].id)
-        //     {
-        //         return  m;
-        //     }
-
-        //     if (id < this.books[m].id)
-        //     {
-        //         b = m; 
-        //     }
-        //     else{
-        //         a = m;
-        //     }
-        // }
-        // if (id === this.books[a].id)
-        // {
-        //     return a;
-        // }
-        // else{
-        //     return null;
-        // }
-
     }
 
-    BuyBooks()
+    buyBooks()
     {
         var books_for_send = [];
         this.books.forEach(element => {
             books_for_send.push({id:element.id, amount:element.amount});
         });
-        this.bookService.SellBooks(books_for_send).subscribe(
-            success => this.snacker.open("You buy books","Undo"),
+        this.bookService.sellBooks(books_for_send).subscribe(
+            success => this.snacker.open("You buy books","OK"),
             error => console.log(error.error)
         );
     }
-
-    // private compareFunction(a, b) : number
-    // {
-    //     if (a.id > b.id)
-    //         return 1;
-    //     if (a.id === b.id)
-    //         return 0;
-    //     if (a.id < b.id)
-    //         return -1;
-    // }
 }

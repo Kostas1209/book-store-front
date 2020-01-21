@@ -19,20 +19,13 @@ export class UserInterfaceComponent implements OnInit {
   constructor(private httpService : UserService, private router : Router, 
     private messageService : MessageService, private books : UserBasketService) {
     this.isError = false;
-    // this.subscription$ = this.messageService.getMessage().subscribe(
-    //   message => {
-    //     console.log(message.text);
-    //      this.AddBookToBasket(message.text);
-    //     },
-    //   error => {this.isError = true; this.error_message = error.message;}
-    // );
    }
 
   ngOnInit() {
   }
 
-  LogOut(){
-    this.httpService.LogOut().
+  logOut(){
+    this.httpService.logOut().
     subscribe(data =>  
       {
         deleteToken('access');
@@ -41,10 +34,10 @@ export class UserInterfaceComponent implements OnInit {
       });
   }
 
-  DeleteBook(id : number, amount: number)
+  deleteBook(id : number, amount: number)
   {
     this.messageService.sendMessage({id : id, amount : amount});
-    this.books.DeleteBook(id); 
+    this.books.deleteBook(id); 
   }
 
   goToBooks()
@@ -52,8 +45,8 @@ export class UserInterfaceComponent implements OnInit {
     this.router.navigate(['books']);
   }
 
-  BuyBooks(){
-    this.books.BuyBooks();
+  buyBooks(){
+    this.books.buyBooks();
     this.books.books = [];
   }
 
