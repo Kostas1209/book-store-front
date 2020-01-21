@@ -9,8 +9,7 @@ import { BookRoutingModule } from './book-routing.module';
 // const routes: Routes = [{ path: '', component: BookComponent }];
 
 @NgModule({
-    declarations: [ BookComponent
-      ],
+    declarations: [BookComponent],
     imports: [
         //BrowserModule,
         //HttpClientModule,
@@ -18,7 +17,6 @@ import { BookRoutingModule } from './book-routing.module';
         CommonModule,
         FormsModule
       ],
-    exports: [ BookComponent]
 })
 export class BookModule
 {}

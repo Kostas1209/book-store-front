@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Book } from '../models/models';
 import {Router} from '@angular/router';
 import {BookService} from '../services/book.service'
 import {isAuthorized} from '../services/cookie.service'
 import { MessageService, UserBasketService } from '../services/server.service';
-import { Subscription} from 'rxjs';
+import { Subscription, fromEvent} from 'rxjs';
+import { map, debounceTime } from 'rxjs/operators';
 
 
 @Component({
   selector: 'books',
   templateUrl: './books.component.html',
-  styleUrls: ['./books.component.css'],
+  styleUrls: ['./books.component.scss'],
   providers: [BookService, HttpClient]
 })
-export class BookComponent implements OnInit {
+export class BookComponent implements OnInit, AfterViewInit {
 
   isLogin :boolean;
   books : Book[] = [];
@@ -54,6 +55,24 @@ export class BookComponent implements OnInit {
               });
   }
 
+  ngAfterViewInit(){
+    // elem ref
+    const searchBox = document.getElementById('textInput');
+
+    // streams
+    const keyup$ = fromEvent(searchBox, 'keyup');
+
+    // wait .5s between keyups to emit current value
+    keyup$
+    .pipe(
+        map((i : any) => i.currentTarget.value),
+        debounceTime(1000)
+    )
+    .subscribe(
+      success => this.Search()
+    );
+  }
+
   Search(){
     this.book_service.SearchBook(this.search_data).
     subscribe(data => {
@@ -81,7 +100,6 @@ export class BookComponent implements OnInit {
   {
     this.router.navigate(['login']);
   }
-
 
   private recountAmount()
   {

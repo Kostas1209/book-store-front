@@ -50,6 +50,7 @@ export class UserComponent implements OnInit  {
     this.files = event.target.files[0];
     this.reader.readAsDataURL(this.files);
     this.reader.onload = ()=>{}
+    
   }
 
   SendPhoto()
@@ -57,7 +58,17 @@ export class UserComponent implements OnInit  {
     if (this.files) {
       this.user_service.SendUserPhoto(this.reader.result).
       subscribe(
-        success => {},
+        success => {
+          this.user_service.GetUserAvatar().
+          subscribe(
+            success => {
+              this.image = 'data:image/jpeg;base64,' + success;
+            },
+            error => {
+              console.log(error.error);
+            }
+          );
+        }
       );
     }
   }

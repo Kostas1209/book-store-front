@@ -11,6 +11,5 @@ import { CommonModule } from "@angular/common";
     //BrowserModule,
   ],
   bootstrap: [],
-  exports: []
 })
 export class UserInterfaceModule { }

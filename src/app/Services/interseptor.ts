@@ -101,7 +101,15 @@ export class ParamInterceptor implements HttpInterceptor{
                     return this.handle401Error(req,next);
                 }
                 else{
-                    this.snacker.open("Ooops","Undo");
+                    let text:string ; 
+                    if(error.status === 500)
+                    {
+                        text = "server error. Try to reconnect";
+                    }
+                    else{
+                        text = error.statusText;
+                    }
+                    this.snacker.open(text,"Undo");
                     this.example.pipe(
                         delay(2000)
                     ).subscribe(

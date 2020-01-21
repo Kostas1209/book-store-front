@@ -17,7 +17,6 @@ import { LoginRoutingModule } from './login-routing.module';
         LoginRoutingModule
        // HttpClientModule
       ],
-    exports: [LoginComponent]
 })
 export class LoginModule
 {}

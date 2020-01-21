@@ -1,0 +1,15 @@
+@import 'src/styles/abstracts/variables';
+
+
+mat-expansion-panel {
+    width: 20%;
+}
+
+.mat-badge {
+    height: 20px;
+    top: 6px;
+}
+
+.icon {
+    transform: scale(0.8);
+}

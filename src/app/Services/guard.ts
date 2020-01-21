@@ -20,22 +20,11 @@ export class AuthGuard implements CanActivate {
           {
             if (route[i] === "?")
             {
-               for (var j = i+1;j < route.length; j++)
-               {
-                 if(route[j] === '=')
-                 {
-                   var id = route.slice(i+1,j);  /// name of param 
-                   this.router.navigate(
-                    [route.slice(0,i)], /// route
-                    {
-                    queryParams:{
-                      id : route.slice(j+1,route.length), /// "id" : number
-                      }
-                    }
-                    )
-                  return false;
-                 }
-               }
+              this.router.navigate([route.slice(0,i)], 
+              {
+                queryParams :  this.serviceUrl.getParams() 
+              });
+              return false;
             }
           }
           this.router.navigate([route]);

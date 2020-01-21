@@ -1,7 +1,7 @@
 <form [formGroup]="myForm" novalidate (ngSubmit)="submit()">
     <label>Email</label>
     <div class="form-group">
-        <input class="form-control" name="email" formControlName="userEmail" [(ngModel)] = "user_email"/>
+        <input type="text" class="form-control" name="email" formControlName="userEmail" [(ngModel)] = "user_email"/>
           
         <div class="alert alert-danger"
             *ngIf="myForm.controls['userEmail'].invalid && myForm.controls['userEmail'].touched">

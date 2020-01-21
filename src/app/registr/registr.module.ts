@@ -20,6 +20,5 @@ import { RegistrRoutingModule } from './registr-routing.module';
     RegistrRoutingModule,
     //HttpClientModule
   ],
-  exports: [ RegistrComponent]
 })
 export class RegistrModule { }

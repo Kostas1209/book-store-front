@@ -1,20 +1,18 @@
 <div>
-    <button type = "button" class = "logout" (click) = "LogOut()">Log out</button>
-    <button type = "button" class = "logout" (click) = "goToBooks()">Books</button>
-    <button type = "button" class = "logout" (click) = "goToUserCabinet()">My cabinet</button>
+    <button type = "button"  (click) = "LogOut()">Log out</button>
+    <button type = "button"  (click) = "goToBooks()">Books</button>
+    <button type = "button"  (click) = "goToUserCabinet()">My cabinet</button>
 </div>
 <mat-expansion-panel >
     <mat-expansion-panel-header >
       <mat-panel-title class="mat-badge-medium" >
-        <div >
             <mat-icon  matBadgeSize = "small" matBadge={{books.books.length}} aria-label="icon">shopping_cart</mat-icon>
-        </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div *ngIf= "isError == false" >
         <div *ngFor="let item of books.books " >
             {{item.title}}: {{item.amount}}  
-            <button class = "button1" (click)="DeleteBook(item.id, item.amount)">
+            <button  (click)="DeleteBook(item.id, item.amount)">
                 <mat-icon class="icon" aria-label="icon">delete</mat-icon>
             </button>
         </div>

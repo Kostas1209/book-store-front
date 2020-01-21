@@ -8,7 +8,7 @@ import { SafeHtmlPipe } from '../services/pipes';
 import { UserRoutingModule } from './user-routing.module';
 
 @NgModule({
-    declarations: [ UserComponent, SafeHtmlPipe],
+    declarations: [ UserComponent , SafeHtmlPipe],
     imports: [
         //BrowserModule,
         //HttpClientModule,
@@ -16,7 +16,6 @@ import { UserRoutingModule } from './user-routing.module';
         FormsModule,
         UserRoutingModule,
       ],
-    exports: [ UserComponent]
 })
 export class UserModule
 {}

@@ -62,7 +62,6 @@ export class UserBasketService
                 return i;
             }
         }
-        return null;
         ///return number of element of null if not exist
 
 

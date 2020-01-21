@@ -1,22 +1,21 @@
-<button *ngIf="!isLogin" (click)="Login()">
-    Login
-</button>
-<div>
-        <input type="text" [(ngModel)]="search_data"> 
-        <button (click)="Search()">Search</button>
-</div>
-<div *ngIf = "isError==false">
-    <div *ngFor="let book of books">
-        <p>title: {{book?.title}}</p>
-        <p>author: {{book?.author}}</p>
-        <p>price:  {{book?.price}}</p>
-        <p>{{book?.amount_in_storage}}</p>
-        <button [disabled]  = "!book?.amount_in_storage > 0" (click)="ReserveBook(book?.id)">
-            Reserve
-        </button>
+<body>
+    <button *ngIf="!isLogin" (click)="Login()">
+        Login
+    </button>
+        <input id="textInput" type="text" [(ngModel)]="search_data" placeholder="Search..."> 
+    <div *ngIf = "isError==false">
+        <div *ngFor="let book of books">
+            <p>title: {{book?.title}}</p>
+            <p>author: {{book?.author}}</p>
+            <p>price:  {{book?.price}}</p>
+            <p>{{book?.amount_in_storage}}</p>
+            <button [disabled]  = "!book.amount_in_storage" (click)="ReserveBook(book?.id)">
+                Reserve
+            </button>
+        </div>
     </div>
-</div>
-<div *ngIf = "isError==true">
-    {{error_message}}
-</div>
+    <div *ngIf = "isError==true">
+        {{error_message}}
+    </div>
+</body>
 

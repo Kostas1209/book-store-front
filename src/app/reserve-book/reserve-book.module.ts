@@ -19,6 +19,5 @@ import { ReserveBookRoutingModule } from './reserve-book-routing';
     ReactiveFormsModule,
     ReserveBookRoutingModule,
   ],
-  exports: [ReserveBookComponent]
 })
 export class ReserveBookModule { }

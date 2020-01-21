@@ -8,7 +8,7 @@ import { deleteToken } from '../services/cookie.service';
 @Component({
   selector: 'app-user-interface',
   templateUrl: './user-interface.component.html',
-  styleUrls: ['./user-interface.component.css'],
+  styleUrls: ['./user-interface.component.scss'],
   providers: [UserService]
 })
 export class UserInterfaceComponent implements OnInit {

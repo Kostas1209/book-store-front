@@ -1,32 +1,35 @@
 import { Injectable } from "@angular/core";
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute, NavigationExtras, Params } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class ServiceUrl {
 
-    previousUrl: string;
-    currentUrl: string; 
-
-    constructor(router: Router) {
-        console.log("test");
+    constructor(router: Router, private activateRouter : ActivatedRoute) {
         router.events
         .subscribe(event => {
             if (event instanceof NavigationEnd) {   
-              localStorage.setItem('prevUrl',localStorage.getItem('currentUrl'));
-              localStorage.setItem('currentUrl',event.url);
+              let result:Params;
+              this.activateRouter.queryParams.subscribe(
+                params => result = params
+              );  
+              localStorage.setItem('currentUrl',router.url);
+              localStorage.setItem('params',JSON.stringify(result));
               this.Show();
             };
           });
     }
 
-    getPrev()
-    {
-      return localStorage.getItem('prevUrl');
-    }
-
     Show()
     {
-      console.log(this.getCurrent() + "    " + this.getPrev());
+      console.log(this.getCurrent());
+      console.log(this.getParams());
+    }
+
+    getParams()
+    {
+      const storageVal = localStorage.getItem('params');
+      const val = JSON.parse(storageVal)
+      return val;
     }
 
     getCurrent()
