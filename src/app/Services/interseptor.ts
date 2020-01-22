@@ -41,6 +41,7 @@ export class ParamInterceptor implements HttpInterceptor{
             if(error.status === 401)
             {
                 this.Redirect(); 
+                this.loaderService.isLoading.next(false);
                 return of(false);
             }
             console.log(error);
@@ -55,6 +56,7 @@ export class ParamInterceptor implements HttpInterceptor{
             request = request.clone({
                 headers: myHeaders
             });
+            this.loaderService.isLoading.next(false);
             return next.handle(request);
         }))
 
@@ -67,6 +69,7 @@ export class ParamInterceptor implements HttpInterceptor{
             request = request.clone({
                 headers: myHeaders
             });
+            this.loaderService.isLoading.next(false);
             return next.handle(request);
         }));
     }
@@ -94,17 +97,18 @@ export class ParamInterceptor implements HttpInterceptor{
             });
         }
 
-        this.example.pipe(
-            delay(2000)
-        ).subscribe(
-            () => {this.loaderService.isLoading.next(false); }
-        );
-
+        // this.example.pipe(
+        //     delay(2000)
+        // ).subscribe(
+        //     () => {this.loaderService.isLoading.next(false); }
+        // );
         //console.log(req.headers);
+        this.loaderService.isLoading.next(false);
         return next.handle(req).pipe(
             catchError(error => {  
+                this.loaderService.isLoading.next(true);
                 req.headers.delete('Authorization');
-                this.loaderService.isLoading.next(true); 
+                //this.loaderService.isLoading.next(true); 
                 if(error.status === 401){ /// if we catch 401 access token is expire
                     return this.handle401Error(req,next);
                 }
@@ -113,13 +117,15 @@ export class ParamInterceptor implements HttpInterceptor{
                     if(error.status === 500)
                     {
                         text = "server error. Try to reconnect";
-                        this.snacker.open(text,"Undo");
+                        this.snacker.open(text,"OK");
                     }
-                    this.example.pipe(
-                        delay(2000)
-                    ).subscribe(
-                        () => {this.loaderService.isLoading.next(false); }
-                    );
+                    // this.example.pipe(
+                    //     delay(2000)
+                    // ).subscribe(
+                    //     () => {this.loaderService.isLoading.next(false); }
+                    // );
+
+                    this.loaderService.isLoading.next(false); 
                     return throwError(error);
                 }
             })

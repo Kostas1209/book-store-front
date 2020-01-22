@@ -27,7 +27,6 @@ export class UserComponent implements OnInit  {
       this.result = data;
       this.user.Name = data["first_name"];
       this.user.LastName = data["last_name"];
-      console.log(this.result);
     });   
   }
 
@@ -45,9 +44,12 @@ export class UserComponent implements OnInit  {
     )
   }
 
-  send (){
+  changeUserInfo (){
     this.user_service.changeUserInfo(this.user.Name,this.user.LastName).
-    subscribe(data => console.log("Success"));
+    subscribe(data =>
+               this.snacker.open("Change successfully","OK",{
+                   duration: this.duration_for_snacker * 1000})
+      );
   }
 
   addPhoto(event) {
@@ -69,11 +71,17 @@ export class UserComponent implements OnInit  {
               this.image = 'data:image/jpeg;base64,' + success;
             },
             error => {
-              this.snacker.open("Image not load","OK",{
+              this.snacker.open(error.error,"OK",{
                 duration: this.duration_for_snacker * 1000
               });
             }
           );
+        }
+        ,
+        error=>{
+                this.snacker.open(error.error,"OK",{
+                duration: this.duration_for_snacker * 1000
+                });
         }
       );
     }
