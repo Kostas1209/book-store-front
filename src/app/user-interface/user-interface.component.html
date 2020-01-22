@@ -16,7 +16,7 @@
                 <mat-icon class="icon" aria-label="icon">delete</mat-icon>
             </button>
         </div>
-        <button (click)="buyBooks()">
+        <button *ngIf="books.books.length > 0" (click)="buyBooks()">
             Buy
         </button>
     </div>

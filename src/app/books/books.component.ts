@@ -44,7 +44,7 @@ export class BookComponent implements OnInit, AfterViewInit {
     )
   }
 
-  ngOnInit(){   
+  ngOnInit(){  
     this.book_service.getBookCatalog().
     subscribe(data => {
                 this.books = data["books"];

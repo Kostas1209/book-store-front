@@ -56,8 +56,11 @@ export class ParamInterceptor implements HttpInterceptor{
             request = request.clone({
                 headers: myHeaders
             });
-            this.loaderService.isLoading.next(false);
-            return next.handle(request);
+            return next.handle(request).pipe(
+                tap(
+                    response=> this.loaderService.isLoading.next(false)
+                )
+                );
         }))
 
     } else {
@@ -69,8 +72,11 @@ export class ParamInterceptor implements HttpInterceptor{
             request = request.clone({
                 headers: myHeaders
             });
-            this.loaderService.isLoading.next(false);
-            return next.handle(request);
+            return next.handle(request).pipe(
+                tap(
+                    response=> this.loaderService.isLoading.next(false)
+                )
+                );
         }));
     }
     }
@@ -87,8 +93,11 @@ export class ParamInterceptor implements HttpInterceptor{
         }
         if (req.url.includes('refresh'))
         {
-            this.loaderService.isLoading.next(false); 
-            return next.handle(req);
+            return next.handle(req).pipe(
+                tap(
+                    response=> this.loaderService.isLoading.next(false)
+                )
+                );
         }
         if(isAuthorized()){ /// and if we want another path we attach token 
             const myHeaders = new HttpHeaders().set('Authorization', 'Bearer ' + getToken("access") );
@@ -103,12 +112,9 @@ export class ParamInterceptor implements HttpInterceptor{
         //     () => {this.loaderService.isLoading.next(false); }
         // );
         //console.log(req.headers);
-        this.loaderService.isLoading.next(false);
         return next.handle(req).pipe(
             catchError(error => {  
-                this.loaderService.isLoading.next(true);
                 req.headers.delete('Authorization');
-                //this.loaderService.isLoading.next(true); 
                 if(error.status === 401){ /// if we catch 401 access token is expire
                     return this.handle401Error(req,next);
                 }
@@ -124,17 +130,15 @@ export class ParamInterceptor implements HttpInterceptor{
                     // ).subscribe(
                     //     () => {this.loaderService.isLoading.next(false); }
                     // );
-
-                    this.loaderService.isLoading.next(false); 
                     return throwError(error);
                 }
-            })
+            }),
+            tap(response =>
+                {
+                    this.loaderService.isLoading.next(false); 
+                }
+            )
         );
-    }
-
-    ngOnDestroy()
-    {
-        this.loaderService.isLoading.next(false); 
     }
 
 }

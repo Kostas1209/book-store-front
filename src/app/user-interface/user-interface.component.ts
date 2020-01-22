@@ -17,7 +17,7 @@ export class UserInterfaceComponent implements OnInit {
   error_message: string;
 
   constructor(private httpService : UserService, private router : Router, 
-    private messageService : MessageService, private books : UserBasketService) {
+    private messageService : MessageService, public books : UserBasketService) {
     this.isError = false;
    }
 

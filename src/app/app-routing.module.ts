@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'books', loadChildren: () => import('./books/books.module').then(m => m.BookModule) },
   { path: 'user', loadChildren: () => import('./user-info/user.module').then(m => m.UserModule) },
   { path: 'single_book', loadChildren: () => import('./reserve-book/reserve-book.module').then(m => m.ReserveBookModule), canActivate : [CanReserveGuard] },
-  { path: '**', loadChildren: () => import('./not-found/not-found.module').then(m=>m.NotFoundModule) },
+  { path: '**',/* loadChildren: () => import('./not-found/not-found.module').then(m=>m.NotFoundModule),*/ redirectTo: 'books' },
 ];
 
 @NgModule({

@@ -11,7 +11,7 @@
             <p>author: {{book?.author}}</p>
             <p>price:  {{book?.price}}</p>
             <p>{{book?.amount_in_storage}}</p>
-            <button [disabled]  = "!book.amount_in_storage > 0" (click)="reserveBook(book?.id)">
+            <button [disabled]  = "! (book?.amount_in_storage > 0)" (click)="reserveBook(book?.id)">
                 Reserve
             </button>
         </div>

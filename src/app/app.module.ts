@@ -31,7 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     HttpClientModule,
     UserInterfaceModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     MaterialAppModule,
     CommonModule,
