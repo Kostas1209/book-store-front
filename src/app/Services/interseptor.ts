@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse, HttpHeaders, HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpHeaders, HttpClient} from "@angular/common/http";
 
 import { Observable, throwError, BehaviorSubject, of } from 'rxjs';
-import { catchError, switchMap, tap, filter, take, delay } from 'rxjs/operators';
+import { catchError, switchMap, tap, filter, take, last } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { LoaderService } from './loader.service';
@@ -27,7 +27,7 @@ export class ParamInterceptor implements HttpInterceptor{
         deleteToken("access");
         deleteToken("refresh");
         this.router.navigate(['login']);
-        this.snacker.open("You should login again","Undo",{
+        this.snacker.open("You should login again","OK",{
             duration: this.duration_for_snacker * 1000
         });
     }
@@ -41,10 +41,8 @@ export class ParamInterceptor implements HttpInterceptor{
             if(error.status === 401)
             {
                 this.Redirect(); 
-                this.loaderService.isLoading.next(false);
                 return of(false);
             }
-            console.log(error);
 
         } ),
         switchMap((token: any) => {
@@ -56,11 +54,11 @@ export class ParamInterceptor implements HttpInterceptor{
             request = request.clone({
                 headers: myHeaders
             });
-            return next.handle(request).pipe(
+             return next.handle(request)/*.pipe(
                 tap(
                     response=> this.loaderService.isLoading.next(false)
                 )
-                );
+                );*/
         }))
 
     } else {
@@ -72,11 +70,7 @@ export class ParamInterceptor implements HttpInterceptor{
             request = request.clone({
                 headers: myHeaders
             });
-            return next.handle(request).pipe(
-                tap(
-                    response=> this.loaderService.isLoading.next(false)
-                )
-                );
+            return next.handle(request)
         }));
     }
     }
@@ -106,12 +100,6 @@ export class ParamInterceptor implements HttpInterceptor{
             });
         }
 
-        // this.example.pipe(
-        //     delay(2000)
-        // ).subscribe(
-        //     () => {this.loaderService.isLoading.next(false); }
-        // );
-        //console.log(req.headers);
         return next.handle(req).pipe(
             catchError(error => {  
                 req.headers.delete('Authorization');
@@ -125,14 +113,10 @@ export class ParamInterceptor implements HttpInterceptor{
                         text = "server error. Try to reconnect";
                         this.snacker.open(text,"OK");
                     }
-                    // this.example.pipe(
-                    //     delay(2000)
-                    // ).subscribe(
-                    //     () => {this.loaderService.isLoading.next(false); }
-                    // );
                     return throwError(error);
                 }
             }),
+            last(),
             tap(response =>
                 {
                     this.loaderService.isLoading.next(false); 

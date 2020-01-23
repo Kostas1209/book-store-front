@@ -46,14 +46,18 @@ export class UserBasketService
 
     deleteBook(id : number)
     {
-        var nomer = this.InBasket(id);
+        var nomer = this.isInBasket(id);
         if(nomer === null)
             return ;
         
         this.books.splice(nomer,1);
     }
 
-    InBasket(id : number)
+    /*
+    / if book is consisted in basket return position
+    / else return null
+    */
+    isInBasket(id : number)
     {
         for (var i = 0;i < this.books.length; i++)
         {

@@ -14,19 +14,17 @@ import { AuthGuard, CanReserveGuard } from './services/guard';
 import { ServiceUrl } from './services/path.service';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './services/loader.service';
-import { UserBasketService } from './services/server.service';
+import { UserBasketService } from './services/user-basket.service';
 import { UserService } from './services/user.service';
 import { CommonModule } from '@angular/common';
 import { BookService } from './services/book.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { AmountSymbolsPipe } from './services/pipes';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserInterfaceComponent,
     LoaderComponent,
-    //AmountSymbolsPipe
   ],
   imports: [
     HttpClientModule,

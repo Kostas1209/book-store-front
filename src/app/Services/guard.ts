@@ -14,20 +14,20 @@ export class AuthGuard implements CanActivate {
           return true;
         }
         else{
-          var route = "a"; 
+          var route = ""; 
           route = this.serviceUrl.getCurrent();
           for( var i = 0; i < route.length; i++)
           {
-            if (route[i] === "?")
+            if (route[i] === "?") /// if we have params
             {
               this.router.navigate([route.slice(0,i)], 
               {
-                queryParams :  this.serviceUrl.getParams() 
+                queryParams :  this.serviceUrl.getParams() /// get previous params
               });
               return false;
             }
           }
-          this.router.navigate([route]);
+          this.router.navigate([route]);  ///else navigate to path
           return false
         }
     }
@@ -44,7 +44,7 @@ export class CanReserveGuard implements CanActivate {
         }
         else{
           //this.router.navigate(['login']);
-          this.snacker.open("You should login","Undo",{
+          this.snacker.open("Denied. You should login","OK",{
             duration: this.duration_for_snacker * 1000
           });
           return false

@@ -1,4 +1,4 @@
-import { Observable, race, ReplaySubject } from 'rxjs';
+import { race, ReplaySubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 
@@ -9,43 +9,42 @@ export interface CacheOptions {
 
 export function Cache(options: CacheOptions) {
 
-  let lastCallArguments: any[] = [];
 
   return (target: any, propertyKey: string, descriptor) => {
-
-
+    
     const originalFunction = descriptor.value;
-
-
     target[`${propertyKey}_cached`] = new ReplaySubject(1, options.ttl);
 
+    
     descriptor.value = function(...args) {
-        console.log(propertyKey)
-        console.log('arguments are', args);
-      // args changed?
-      let argsNotChanged = true;
 
-      for (let i = 0; i < lastCallArguments.length; i++) {
-        argsNotChanged = argsNotChanged && lastCallArguments[i] == args[i];
+      let req;
+      //localStorage.removeItem(`${propertyKey}_cached`);
+
+      if  (localStorage.getItem(`${propertyKey}_cached`))  /// if we have data for this function in cache
+      {
+        console.log(`${propertyKey} are get from localstorage`);
+        const result = localStorage.getItem(`${propertyKey}_cached`);
+        //console.log(result);
+        if (propertyKey === "getUserAvatar")
+          req = this[`${propertyKey}_cached`].next(result.slice(1,result.length-1)); /// remove " from begin and end of string image   
+        else{
+          req = this[`${propertyKey}_cached`].next(result);
+        }
+      }
+      else{
+        console.log(`${propertyKey} are get from server`);
+          req = originalFunction.apply(this, args).pipe(
+          tap((response) => {
+            localStorage.setItem(`${propertyKey}_cached`,JSON.stringify(response)); /// save to local storage 
+            this[`${propertyKey}_cached`].next(response);
+          })
+        );
       }
 
-      console.log('argsNotChanged', argsNotChanged);
-
-      if (!argsNotChanged) { // args change
-        this[`${propertyKey}_cached`] = new ReplaySubject(1, options.ttl);
-      }
-      lastCallArguments = args;
-
-      const req: Observable<any> = originalFunction.apply(this, args).pipe(
-        tap((response) => {
-          this[`${propertyKey}_cached`].next(response);
-        })
-      );
-      // despite what the documentation says i can't find that the complete is ever called
       return race(this[`${propertyKey}_cached`], req);
 
-    };
-
+    }
     return descriptor;
   };
 }

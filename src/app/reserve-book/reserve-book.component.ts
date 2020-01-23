@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Book } from '../models/models';
 import { BookService } from 'src/app/services/book.service'
 import { ActivatedRoute } from '@angular/router';
-import { MessageService, UserBasketService } from '../services/server.service';
+import { MessageService, UserBasketService } from '../services/user-basket.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 
@@ -59,7 +59,7 @@ export class ReserveBookComponent implements OnInit {
                 this.isError = false;
               },
               error => {  
-                this.snacker.open(error.message,"OK",{
+                this.snacker.open(error.error,"OK",{
                   duration: this.duration_of_snacker * 1000
               });  
               });

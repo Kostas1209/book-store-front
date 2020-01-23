@@ -25,7 +25,9 @@ export class LoginComponent {
     duration_for_snacker: number = 5;
 
     constructor(private user_service: UserService, private router : Router, private snacker: MatSnackBar){
-        deleteToken("access");
+        localStorage.removeItem("getUserAvatar_cached");  /// delete cached data after last user 
+        localStorage.removeItem("getUserInfo_cached"); 
+        deleteToken("access");  /// delete tokens after last user
         deleteToken("refresh");
         this.user_email = "";
         this.user_password = "";

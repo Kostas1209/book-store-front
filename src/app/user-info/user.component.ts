@@ -24,9 +24,13 @@ export class UserComponent implements OnInit  {
     this.reader = new FileReader();
     this.user_service.getUserInfo().
     subscribe(data => {
-      this.result = data;
-      this.user.Name = data["first_name"];
-      this.user.LastName = data["last_name"];
+      let result = data;
+      if(typeof(data) === 'string') /// if we get info from cache 
+      {
+        result = JSON.parse(<string>data);  
+      }
+      this.user.Name = result["first_name"];
+      this.user.LastName = result["last_name"];
     });   
   }
 
@@ -34,7 +38,7 @@ export class UserComponent implements OnInit  {
     this.user_service.getUserAvatar().
     subscribe(
       success => {
-        this.image = 'data:image/jpeg;base64,' + success;
+        this.image = "data:image/jpeg;base64," + success;
       },
       error => {
         this.snacker.open("image not load","OK",{
@@ -50,6 +54,7 @@ export class UserComponent implements OnInit  {
                this.snacker.open("Change successfully","OK",{
                    duration: this.duration_for_snacker * 1000})
       );
+    localStorage.removeItem("getUserInfo_cached"); /// remove previous info from cache
   }
 
   addPhoto(event) {
@@ -65,7 +70,8 @@ export class UserComponent implements OnInit  {
       this.user_service.sendUserPhoto(this.reader.result).
       subscribe(
         success => {
-          this.user_service.getUserAvatar().
+          localStorage.removeItem("getUserAvatar_cached"); /// remove  previous photo from cache 
+          this.user_service.getUserAvatar().   /// new  photo save to cache 
           subscribe(
             success => {
               this.image = 'data:image/jpeg;base64,' + success;

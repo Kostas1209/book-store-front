@@ -4,7 +4,7 @@ import { Book } from '../models/models';
 import { Router } from '@angular/router';
 import { BookService } from '../services/book.service'
 import { isAuthorized } from '../services/cookie.service'
-import { MessageService, UserBasketService } from '../services/server.service';
+import { MessageService, UserBasketService } from '../services/user-basket.service';
 import { Subscription, fromEvent} from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
@@ -49,7 +49,7 @@ export class BookComponent implements OnInit, AfterViewInit {
     subscribe(data => {
                 this.books = data["books"];
                 this.isError = false;
-                this.recountAmount();
+                this.recountAmount(); // recount amount of books if user add some to basket
               },
               error => {
                 this.error_message = error.error;
@@ -102,6 +102,11 @@ export class BookComponent implements OnInit, AfterViewInit {
   login()
   {
     this.router.navigate(['login']);
+  }
+
+  registr()
+  {
+    this.router.navigate(['registration']);
   }
 
   recountAmount()

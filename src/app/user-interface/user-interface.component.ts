@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { MessageService, UserBasketService } from '../services/server.service';
+import { MessageService, UserBasketService } from '../services/user-basket.service';
 import { deleteToken } from '../services/cookie.service';
 
 
@@ -13,7 +13,6 @@ import { deleteToken } from '../services/cookie.service';
 })
 export class UserInterfaceComponent implements OnInit {
   isError : boolean;
-  //subscription$: Subscription;
   error_message: string;
 
   constructor(private httpService : UserService, private router : Router, 
@@ -54,10 +53,4 @@ export class UserInterfaceComponent implements OnInit {
   {
     this.router.navigate(['user']);
   }
-
-  // AddBookToBasket(book)
-  // {
-  //   this.books.AddBook(book);
-  // }
-
 }

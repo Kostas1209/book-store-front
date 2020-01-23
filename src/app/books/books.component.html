@@ -2,6 +2,10 @@
     <button *ngIf="!isLogin" (click)="login()">
         Log in
     </button>
+    <button *ngIf="!isLogin" (click)="registr()">
+        Log up
+    </button>
+
     <div>
         <input id="textInput" type="text" [(ngModel)]="search_data" placeholder="Search..."> 
     </div>
